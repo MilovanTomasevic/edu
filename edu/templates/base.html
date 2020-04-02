@@ -1,12 +1,44 @@
+{% load static %}
+
 <!DOCTYPE html>
+<html lang="en">
 <html>
   <head>
+    <meta charset="utf-8">
+    <title>Educenter</title>
+
+    <!-- mobile responsive meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- ** Plugins Needed for the Project ** -->
+    <!-- Bootstrap -->
+    <link  href="{% static 'plugins/bootstrap/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- slick slider -->
+    <link href="{% static 'plugins/slick/slick.css' %}" rel="stylesheet">
+    <!-- themefy-icon -->
+    <link href="{% static 'plugins/themify-icons/themify-icons.css' %}" rel="stylesheet">
+    <!-- animation css -->
+    <link href="{% static 'plugins/animate/animate.css' %}" rel="stylesheet" rel="stylesheet">
+    <!-- aos -->
+    <link rhref="{% static 'plugins/aos/aos.css' %}" rel="stylesheet">
+    <!-- venobox popup -->
+    <link href="{% static 'plugins/venobox/venobox.css' %}" rel="stylesheet">
+
+    <!-- Main Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+    <!--Favicon-->
+    <link href="{% static 'images/favicon.png' %}" rel="shortcut icon" type="image/x-icon">
+    <link href="{% static 'images/favicon.png' %}" rel="icon"  type="image/x-icon">
+
     <title>{% block head_title %}{% endblock %}</title>
     {% block extra_head %}
     {% endblock %}
   </head>
+
   <body>
-    {% block body %}
+    {% comment %} {% block body %}
 
     {% if messages %}
     <div>
@@ -17,24 +49,57 @@
         {% endfor %}
       </ul>
     </div>
-    {% endif %}
+    {% endif %} {% endcomment %}
 
-    <div>
-      <strong>Menu:</strong>
-      <ul>
-        {% if user.is_authenticated %}
-        <li><a href="{% url 'account_email' %}">Change E-mail</a></li>
-        <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
-        {% else %}
-        <li><a href="{% url 'account_login' %}">Sign In</a></li>
-        <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
-        {% endif %}
-      </ul>
-    </div>
-    {% block content %}
-    {% endblock %}
-    {% endblock %}
-    {% block extra_body %}
-    {% endblock %}
+  <div class="mt-5 pt-4">
+  {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endfor %}
+  {% endif %}
+  </div>
+
+  <!-- header -->
+  {% include "header.html" %}
+  <!-- /header -->
+
+  {% if not request.path == "/" %}
+    <!-- page title -->
+    <section class="page-title-section overlay" data-background="{% static 'images/backgrounds/page-title.jpg' %}">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8">
+            <ul class="list-inline custom-breadcrumb">
+              <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="@@page-link">{% block page_title %}{% endblock page_title%}</a></li>
+              <li class="list-inline-item text-white h3 font-secondary @@nasted"></li>
+            </ul>
+            <p class="text-lighten">{% block page_title_details %}{% endblock page_title_details%}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- /page title -->
+  {% endif %}
+
+  {% block content %}{% endblock %}
+
+  {% comment %} {% endblock %} {% endcomment %}
+
+  {% block extra_body %}
+  {% endblock %}
+
+  <!-- footer content -->
+  {% include "footer.html" %}
+  <!-- /footer -->
+
+  <!-- scripts content -->
+  {% include "scripts.html" %}
+  <!-- /scripts -->
+
   </body>
 </html>
