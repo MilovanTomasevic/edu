@@ -29,6 +29,10 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
 
     'crispy_forms',
+
+    'blog',
+    'users',
+
 ]
 
 MIDDLEWARE = [
@@ -114,9 +118,43 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend'
 )
 SITE_ID = 1
-LOGIN_REDIRECT_URL = '/'
-ACCOUNT_EMAIL_REQUIRED = True
+#AUTH_USER_MODEL = 'edu.User'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # CRISPY FORMS
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# Redirects
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+# Allauth configuration
+
+# ACCOUNT_AUTHENTICATION_METHOD = "username"
+# ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
+# ACCOUNT_EMAIL_REQUIRED = True
+# ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+# ACCOUNT_EMAIL_SUBJECT_PREFIX = "[EduCenter]"
+# ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN = 60
+# ACCOUNT_FORMS={
+#     "add_email": "edu.forms.allauth.MyAddEmailForm",
+#     "change_password": "edu.forms.allauth.MyChangePasswordForm",
+#     "disconnect": "edu.forms.allauth.MyDisconnectForm",
+#     "login": "edu.forms.allauth.MyLoginForm",
+#     "reset_password": "edu.forms.allauth.MyResetPasswordForm",
+#     "reset_password_from_key": "edu.forms.allauth.MyResetPasswordKeyForm",
+#     "set_password": "edu.forms.allauth.MySetPasswordForm",
+#     "signup": "edu.forms.allauth.MySignUpForm"
+# }
+# ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 10
+# ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 60
+# ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True
+# ACCOUNT_LOGIN_ON_PASSWORD_RESET = False
+# ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
+# ACCOUNT_USERNAME_BLACKLIST =["educenter","edu","admin"]
+# ACCOUNT_USERNAME_MIN_LENGTH = 6
+# ACCOUNT_USERNAME_VALIDATORS =None
+
+

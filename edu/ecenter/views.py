@@ -35,12 +35,6 @@ def research(request):
 def scholarship(request):
     return render(request, 'scholarship.html')
 
-def blog(request):
-    return render(request, 'blog.html')
-
-def blog_single(request):
-    return render(request, 'blog-single.html')
-
 def teacher(request):
     return render(request, 'teacher.html')
 
