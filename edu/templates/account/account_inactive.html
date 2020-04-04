@@ -4,8 +4,17 @@
 
 {% block head_title %}{% trans "Account Inactive" %}{% endblock %}
 
-{% block content %}
-<h1>{% trans "Account Inactive" %}</h1>
+{% block page_title %}{% trans "Confirm E-mail Address" %}{% endblock page_title%}
+{% block page_title_details %}{% trans "This account is inactive." %}{% endblock page_title_details%}
 
-<p>{% trans "This account is inactive." %}</p>
+{% block content %}
+
+
+<section class="section">
+        <div class="container">
+            <div class="row justify-content-center align-self-center">
+                <p>{% trans "This account is inactive." %}</p>
+            </div>
+        </div>
+    </section>
 {% endblock %}
