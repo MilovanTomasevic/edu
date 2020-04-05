@@ -5,7 +5,8 @@ from .models import Post
 # from django.shortcuts import render, get_object_or_404
 # from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 # # from django.contrib.auth.models import User
-# from django.views.generic import (
+from django.views.generic import ListView, DetailView
+# (
 #     ListView,
 #     DetailView,
 #     CreateView,
@@ -20,22 +21,13 @@ def blog_home(request):
     }
     return render(request, 'blog/blog.html', context)
 
-def blog_single(request):
-    return render(request, 'blog/blog-single.html')
 
-# def home(request):
-#     context = {
-#         'posts': Post.objects.all()
-#     }
-#     return render(request, 'blog/home.html', context)
-
-
-# class PostListView(ListView):
-#     model = Post
-#     template_name = 'blog/home.html'  # <app>/<model>_<viewtype>.html
-#     context_object_name = 'posts'
-#     ordering = ['-date_posted']
-# #     paginate_by = 5
+class PostListView(ListView):
+    model = Post
+    template_name = 'blog/blog.html'  # <app>/<model>_<viewtype>.html
+    context_object_name = 'posts'
+    ordering = ['-date_posted']
+#     paginate_by = 5
 
 
 # class UserPostListView(ListView):
@@ -49,8 +41,8 @@ def blog_single(request):
 #         return Post.objects.filter(author=user).order_by('-date_posted')
 
 
-# class PostDetailView(DetailView):
-#     model = Post
+class PostDetailView(DetailView):
+    model = Post
 
 
 # class PostCreateView(LoginRequiredMixin, CreateView):
