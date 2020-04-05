@@ -6,7 +6,8 @@ from .models import UserProfile , Category , Field
 
 
 class PropertyAdmin(admin.ModelAdmin):
-    list_display = ['name' , 'fields' , 'category' , 'address']
+    list_display = ['user', 'name' , 'fields' , 'category' , 'address']
+    ist_display_links = ['user']
     search_fields = ['name' , 'fields']
     list_filter = ['category' , 'fields']
 
