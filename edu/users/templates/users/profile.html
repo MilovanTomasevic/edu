@@ -34,9 +34,7 @@
           <div class="col-md-6">
             <h4 class="mb-4">SUMMARY OF ACTIVITIES/INTERESTS</h4>
             <ul class="list-unstyled">
-              <li class="mb-3">Computer Networking</li>
-              <li class="mb-3">Computer Security</li>
-              <li class="mb-3">Human Computer Interfacing</li>
+              {% for interest in request.user.userprofile.interests.all %}<li class="mb-3">{{interest}}</li>{% endfor %}
             </ul>
           </div>
         </div>

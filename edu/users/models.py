@@ -16,6 +16,7 @@ class UserProfile(models.Model):
     skype = models.CharField(max_length=50)
     site = models.CharField(max_length=50)
     address = models.CharField(max_length=50)
+    interests = models.ManyToManyField('Interests')
     biography = models.TextField()
 
     def __str__(self):
@@ -33,7 +34,7 @@ class Category(models.Model):
         verbose_name_plural = 'Categories'
 
 class Field(models.Model):
-    field_name = models.CharField(max_length=30)
+    field_name = models.CharField(max_length=50)
 
     def __str__(self):
         return self.field_name
@@ -41,6 +42,18 @@ class Field(models.Model):
     class Meta:
         verbose_name = 'Field'
         verbose_name_plural = 'Fields'
+    
+class Interests(models.Model):
+    interest = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.interest
+
+    class Meta:
+        verbose_name = 'Interest'
+        verbose_name_plural = 'Interests'
+
+
 
 
 def userprofile_receiver(sender, instance, created, *args, **kwargs):
