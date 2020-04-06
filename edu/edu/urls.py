@@ -9,6 +9,7 @@ urlpatterns = [
     path('', include('ecenter.urls')),
     path('blog/', include('blog.urls')),
     path('profile/', include('users.urls')),
+    path('about/', include('about.urls'))
 ]
 
 if settings.DEBUG:

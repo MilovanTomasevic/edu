@@ -5,7 +5,7 @@ from django.conf import settings
 class UserProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
-    image = models.ImageField(default='users/default.jpg', upload_to='users')
+    image = models.ImageField(default='users/default.png', upload_to='users')
     fields = models.ForeignKey('Field' ,null=True ,on_delete=models.SET_NULL)
     category = models.ForeignKey('Category' ,null=True ,on_delete=models.SET_NULL)
     description = models.TextField()
@@ -20,7 +20,7 @@ class UserProfile(models.Model):
     biography = models.TextField()
 
     def __str__(self):
-        return f'{self.user.username} Profile'
+        return self.user.username
 
 
 class Category(models.Model):
