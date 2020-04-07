@@ -9,6 +9,7 @@ class About(models.Model):
     funfacts = models.ManyToManyField('Funfacts')
     stories_title = models.CharField(max_length=50)
     stories_content = models.TextField()
+    story_backgroung = models.ImageField(upload_to='about/', null=True)
     video = models.CharField(max_length=50)
     title_people = models.CharField(max_length=50)
     peoples = models.ManyToManyField('users.UserProfile')
