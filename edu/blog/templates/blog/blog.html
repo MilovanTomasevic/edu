@@ -2,8 +2,8 @@
 
 {% load static %}
 
-{% block page_title %}Our Blog{% endblock page_title%}
-{% block page_title_details %}Our courses offer a good compromise between the continuous assessment favoured by some universities and the emphasis placed on final exams by others.{% endblock page_title_details%}
+{% block page_title %}{{header.blog_heading_title}}{% endblock page_title%}
+{% block page_title_details %}{{header.blog_heading_message}}{% endblock page_title_details%}
 
 
 {% block content %}
@@ -23,7 +23,7 @@
                 <!-- post date -->
                 <li class="list-inline-item mr-3 ml-0">{{ post.date_posted|date:"F d, Y" }}</li>
                 <!-- author -->
-                <li class="list-inline-item mr-3 ml-0">By {{ post.author }}</li>
+                <li class="list-inline-item mr-3 ml-0">By {{ post.author.userprofile.name }}</li>
               </ul>
               <a href="{% url 'post-detail' post.id %}">
                 <h4 class="card-title">{{ post.title }}</h4>

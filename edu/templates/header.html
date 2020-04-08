@@ -61,19 +61,19 @@
 
         <div class="collapse navbar-collapse" id="navigation">
           <ul class="navbar-nav ml-auto text-center">
-            <li class="nav-item active">
+            <li {% if about.about_heading_title %} class="nav-item active" {% else %} class="nav-item @@home" {% endif %}>
               <a class="nav-link" href="{% url 'ecenter-home' %}">Home</a>
             </li>
-            <li class="nav-item @@about">
+            <li {% if about.about_heading_title %} class="nav-item active" {% else %} class="nav-item @@about" {% endif %}>
               <a class="nav-link" href="{% url 'ecenter-about' %}">About</a>
             </li>
-            <li class="nav-item @@courses">
+            <li {% if about.about_heading_title %} class="nav-item active" {% else %} class="nav-item @@courses" {% endif %}>
               <a class="nav-link" href="{% url 'ecenter-courses' %}">COURSES</a>
             </li>
-            <li class="nav-item @@events">
+            <li {% if about.about_heading_title %} class="nav-item active" {% else %} class="nav-item @@events" {% endif %}>
               <a class="nav-link" href="{% url 'ecenter-events' %}">EVENTS</a>
             </li>
-            <li class="nav-item @@blog">
+            <li {% if header.blog_heading_title %} class="nav-item active" {% else %} class="nav-item @@blog" {% endif %}>
               <a class="nav-link" href="{% url 'ecenter-blog' %}">BLOG</a>
             </li>
             <li class="nav-item dropdown view">
@@ -93,7 +93,7 @@
                 <a class="dropdown-item" href="#">Blog Details</a>
               </div>
             </li>
-            <li class="nav-item @@contact">
+            <li {% if about.about_heading_title %} class="nav-item active" {% else %} class="nav-item @@contact" {% endif %}>
               <a class="nav-link" href="{% url 'ecenter-contact' %}">CONTACT</a>
             </li>
           </ul>

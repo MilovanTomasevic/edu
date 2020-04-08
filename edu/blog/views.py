@@ -1,11 +1,11 @@
 from django.shortcuts import render
-from .models import Post
+from .models import Post, Header_Blog
 
 # # Create your views here.
 # from django.shortcuts import render, get_object_or_404
 # from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 # # from django.contrib.auth.models import User
-from django.views.generic import ListView, DetailView
+from django.views.generic import  DetailView
 # (
 #     ListView,
 #     DetailView,
@@ -16,17 +16,19 @@ from django.views.generic import ListView, DetailView
 # from .models import Post
 
 def blog_home(request):
+    header = Header_Blog.objects.last()
     context = {
-        'posts': Post.objects.all()
+        'posts': Post.objects.all(),
+        'header': header
     }
     return render(request, 'blog/blog.html', context)
 
 
-class PostListView(ListView):
-    model = Post
-    template_name = 'blog/blog.html'  # <app>/<model>_<viewtype>.html
-    context_object_name = 'posts'
-    ordering = ['-date_posted']
+# class PostListView(ListView):
+#     model = Post
+#     template_name = 'blog/blog.html'  # <app>/<model>_<viewtype>.html
+#     context_object_name = 'posts'
+#     ordering = ['-date_posted']
 #     paginate_by = 5
 
 

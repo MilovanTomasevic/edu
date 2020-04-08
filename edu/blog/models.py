@@ -17,3 +17,10 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse('post-detail', kwargs={'pk': self.pk})
+
+class Header_Blog(models.Model):
+    blog_heading_title = models.CharField(max_length=50)
+    blog_heading_message = models.CharField(max_length=150)
+
+    def __str__(self):
+        return str(self.id)
