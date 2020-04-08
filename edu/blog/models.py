@@ -18,9 +18,14 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse('post-detail', kwargs={'pk': self.pk})
 
-class Header_Blog(models.Model):
+class HeaderBlog(models.Model):
     blog_heading_title = models.CharField(max_length=50)
     blog_heading_message = models.CharField(max_length=150)
 
     def __str__(self):
         return str(self.id)
+    
+    class Meta:
+        verbose_name = 'Header'
+        verbose_name_plural = 'Headers'
+        db_table = 'HeaderBlog'

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Post, Header_Blog
+from .models import Post, HeaderBlog
 
 # # Create your views here.
 # from django.shortcuts import render, get_object_or_404
@@ -16,7 +16,7 @@ from django.views.generic import  DetailView
 # from .models import Post
 
 def blog_home(request):
-    header = Header_Blog.objects.last()
+    header = HeaderBlog.objects.last()
     context = {
         'posts': Post.objects.all(),
         'header': header
