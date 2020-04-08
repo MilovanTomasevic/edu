@@ -23,7 +23,7 @@
                 <!-- post date -->
                 <li class="list-inline-item mr-3 ml-0">{{ post.date_posted|date:"F d, Y" }}</li>
                 <!-- author -->
-                <li class="list-inline-item mr-3 ml-0">By {{ post.author.userprofile.name }}</li>
+                <li class="list-inline-item mr-3 ml-0"><a class="text-color" href="{% url 'user-posts' post.author.username %}">By {{ post.author.userprofile.name }}</a></li>
               </ul>
               <a href="{% url 'post-detail' post.id %}">
                 <h4 class="card-title">{{ post.title }}</h4>

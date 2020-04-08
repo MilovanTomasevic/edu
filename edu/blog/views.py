@@ -2,10 +2,11 @@ from django.shortcuts import render
 from .models import Post, HeaderBlog
 
 # # Create your views here.
-# from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404
+# from django.conf import settings
 # from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-# # from django.contrib.auth.models import User
-from django.views.generic import  DetailView
+from django.contrib.auth.models import User
+from django.views.generic import  DetailView, ListView
 # (
 #     ListView,
 #     DetailView,
@@ -16,32 +17,45 @@ from django.views.generic import  DetailView
 # from .models import Post
 
 def blog_home(request):
-    header = HeaderBlog.objects.last()
     context = {
         'posts': Post.objects.all(),
-        'header': header
     }
     return render(request, 'blog/blog.html', context)
 
+# def num_post(request):
+#     user = get_object_or_404(User, username=request.kwargs.get('username'))
+#     num_post = Post.objects.filter(author=user).count()
+#     return render(request, 'blog/user_posts.html', {'num_post': num_post})
 
-# class PostListView(ListView):
-#     model = Post
-#     template_name = 'blog/blog.html'  # <app>/<model>_<viewtype>.html
-#     context_object_name = 'posts'
-#     ordering = ['-date_posted']
+class PostListView(ListView):
+    model = Post
+    template_name = 'blog/blog.html'  # <app>/<model>_<viewtype>.html
+    context_object_name = 'posts'
+    ordering = ['-date_posted']
 #     paginate_by = 5
 
+    def get_context_data(self, **kwargs):
+        context = super(PostListView, self).get_context_data(**kwargs)
+        context.update({
+            'posts': Post.objects.order_by('-date_posted'),
+            'header': HeaderBlog.objects.last(),
+        })
+        return context
 
-# class UserPostListView(ListView):
-#     model = Post
-#     template_name = 'blog/user_posts.html'  # <app>/<model>_<viewtype>.html
-#     context_object_name = 'posts'
-#     paginate_by = 5
+class UserPostListView(ListView):
+    model = Post
+    template_name = 'blog/user_posts.html'  # <app>/<model>_<viewtype>.html
+    context_object_name = 'posts'
+    paginate_by = 5
 
-#     def get_queryset(self):
-#         user = get_object_or_404(User, username=self.kwargs.get('username'))
-#         return Post.objects.filter(author=user).order_by('-date_posted')
-
+    def get_context_data(self, **kwargs):
+        context = super(UserPostListView, self).get_context_data(**kwargs)
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        context.update({
+            'user_posts': Post.objects.filter(author=user).order_by('-date_posted'),
+            'count': Post.objects.filter(author=user).count(),
+        })
+        return context
 
 class PostDetailView(DetailView):
     model = Post
