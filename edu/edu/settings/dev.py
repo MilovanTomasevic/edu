@@ -45,3 +45,10 @@ DATABASES = {
 
 STRIPE_PUBLIC_KEY = ''
 STRIPE_SECRET_KEY = ''
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+DEFAULT_FROM_EMAIL = 'test@gmail.com'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSOWRD = ''
+EMAIL_USE_TLS = False
+EMAIL_PORT = 1025

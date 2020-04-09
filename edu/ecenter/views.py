@@ -17,9 +17,6 @@ def events(request):
 def event_single(request):
     return render(request, 'event-single.html')
 
-def contact(request):
-    return render(request, 'contact.html')
-
 def notice(request):
     return render(request, 'notice.html')
 

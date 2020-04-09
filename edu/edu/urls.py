@@ -9,7 +9,8 @@ urlpatterns = [
     path('', include('ecenter.urls')),
     path('blog/', include('blog.urls')),
     path('profile/', include('users.urls')),
-    path('about/', include('about.urls'))
+    path('about/', include('about.urls')),
+    path('contact/', include('contact.urls'))
 ]
 
 if settings.DEBUG:
@@ -18,6 +19,6 @@ if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
-admin.site.site_header = "EduCenter ADMIN"
-admin.site.site_title = "EduCenter ADMIN"
+admin.site.site_header = "EduCenter"
+admin.site.site_title = "EduCenter"
 admin.site.site_index_title = "Welcome To EduCenter"

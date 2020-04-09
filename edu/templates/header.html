@@ -13,7 +13,7 @@
     <div class="container">
       {% if messages %}
         {% for message in messages %}
-          <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+          <div class=" message alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
             {{ message }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
               <span aria-hidden="true">&times;</span>
@@ -93,7 +93,7 @@
                 <a class="dropdown-item" href="#">Blog Details</a>
               </div>
             </li>
-            <li {% if about.about_heading_title %} class="nav-item active" {% else %} class="nav-item @@contact" {% endif %}>
+            <li {% if contactdetails.contact_heading_message %} class="nav-item active" {% else %} class="nav-item @@contact" {% endif %}>
               <a class="nav-link" href="{% url 'ecenter-contact' %}">CONTACT</a>
             </li>
           </ul>
