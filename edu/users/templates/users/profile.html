@@ -23,7 +23,7 @@
             <h4 class="mb-4">CONTACT INFO:</h4>
             <ul class="list-unstyled">
               <li class="mb-3"><a class="text-color" href="mailto:{{request.user.email}}"><i class="ti-email mr-2"></i>{{request.user.email}}</a></li>
-              <li class="mb-3"><a class="text-color" href="callto:+120345876"><i class="ti-mobile mr-2"></i>{{request.user.userprofile.phone}}</a></li>
+              <li class="mb-3"><a class="text-color" href="callto:{{request.user.userprofile.phone}}"><i class="ti-mobile mr-2"></i>{{request.user.userprofile.phone}}</a></li>
               <li class="mb-3"><a class="text-color" href="#"><i class="ti-facebook mr-2"></i>{{request.user.userprofile.facebook}}</a></li>
               <li class="mb-3"><a class="text-color" href="#"><i class="ti-twitter-alt mr-2"></i>{{request.user.userprofile.twitter}}</a></li>
               <li class="mb-3"><a class="text-color" href="#"><i class="ti-skype mr-2"></i>{{request.user.userprofile.skype}}</a></li>

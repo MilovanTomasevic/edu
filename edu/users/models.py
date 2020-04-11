@@ -1,6 +1,8 @@
 from django.db import models
 from django.db.models.signals import post_save
 from django.conf import settings
+from PIL import Image
+
 
 class UserProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -9,7 +11,6 @@ class UserProfile(models.Model):
     fields = models.ForeignKey('Field' ,null=True ,on_delete=models.SET_NULL)
     category = models.ForeignKey('Category' ,null=True ,on_delete=models.SET_NULL)
     description = models.TextField()
-    # mail = models.CharField(max_length=50)
     phone = models.CharField(max_length=50)
     facebook = models.CharField(max_length=50)
     twitter = models.CharField(max_length=50)
@@ -18,10 +19,29 @@ class UserProfile(models.Model):
     address = models.CharField(max_length=50)
     interests = models.ManyToManyField('Interests')
     biography = models.TextField()
+    role = models.ManyToManyField('Role')
 
     def __str__(self):
         return self.user.username
+    
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
 
+        img = Image.open(self.image.path)
+
+        if img.height > 300 or img.width > 300:
+            output_size = (300,300)
+            img.thumbnail(output_size)
+            img.save(self.image.path)
+
+# @receiver(post_save, sender=settings.AUTH_USER_MODEL)
+# def create_user_profile(sender, instance, created, **kwargs):
+#     if created:
+#         UserProfile.objects.create(user=instance)
+
+# @receiver(post_save, sender=settings.AUTH_USER_MODEL)
+# def save_user_profile(sender, instance, **kwargs):
+#     instance.userprofile.save()
 
 class Category(models.Model):
     category_name = models.CharField(max_length=30)
@@ -53,12 +73,20 @@ class Interests(models.Model):
         verbose_name = 'Interest'
         verbose_name_plural = 'Interests'
 
+class Role(models.Model):
+    name = models.CharField(max_length=100)
 
-
+    def __str__(self):
+        return self.name
+    class Meta:
+        verbose_name = 'Role'
+        verbose_name_plural = 'Roles'
 
 def userprofile_receiver(sender, instance, created, *args, **kwargs):
     if created:
         userprofile = UserProfile.objects.create(user=instance)
-
+    else:
+        instance.userprofile.save()
 
 post_save.connect(userprofile_receiver, sender=settings.AUTH_USER_MODEL)
+

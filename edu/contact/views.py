@@ -25,7 +25,7 @@ def send_mail(request):
                 send_email( from_email , subject , message , ['test@gmail.com'])
             
             except BadHeaderError : 
-                messages.add_message(request, messages.ERROR, 'Ivalid header')
+                messages.add_message(request, messages.ERROR, 'Invalid header')
 
             messages.add_message(request, messages.SUCCESS, 'Message Sent Successfully')
             return HttpResponseRedirect('/')
