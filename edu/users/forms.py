@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import UserProfile, Interests, Role
 from django.conf import settings
 from PIL import Image
+from django.contrib.auth.decorators import login_required
 
 class SignupForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -18,9 +19,9 @@ class SignupForm(forms.ModelForm):
     
     class Meta:
         model = UserProfile
-        fields = ('first_name', 'last_name',  'name', 'image', 'fields', 'category', 'description', 'phone', 'facebook', 'twitter', 'skype', 'site', 'address', 'interests' ,'biography')
+        fields = ('first_name', 'last_name',  'name', 'fields', 'category', 'description', 'phone', 'facebook', 'twitter', 'skype', 'site', 'address', 'interests' ,'biography') #'image'
         help_texts = {
-            'image': 'Upload profile image',
+            # 'image': 'Upload profile image',
             'fields': 'Choose your fields',
             'category': 'Choose your category',
         }
@@ -44,7 +45,7 @@ class SignupForm(forms.ModelForm):
         user.save()
 
         user.userprofile.name = self.cleaned_data['name']
-        user.userprofile.image = self.cleaned_data.get('image')
+        # user.userprofile.image = self.cleaned_data.get('image')
         user.userprofile.fields = self.cleaned_data['fields']
         user.userprofile.category = self.cleaned_data['category']
         user.userprofile.description = self.cleaned_data['description']
@@ -60,3 +61,19 @@ class SignupForm(forms.ModelForm):
         role = Role.objects.get(pk=1) #self.cleaned_data['role']#Role.objects.first().pk # Role.objects.all()[0] # role = Role.objects.first()
         user.userprofile.role.add(role)
         user.userprofile.save()
+
+
+class UserUpdateForm(forms.ModelForm):
+    email = forms.EmailField()
+
+    class Meta:
+        model = User
+        fields = ['username', 'email']
+
+class ProfileUpdateForm(forms.ModelForm):
+
+    interests  = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple, help_text="Choose your interests", queryset=Interests.objects.all())
+
+    class Meta:
+        model = UserProfile
+        fields = ('name', 'image', 'fields', 'category', 'description', 'phone', 'facebook', 'twitter', 'skype', 'site', 'address', 'interests' ,'biography')

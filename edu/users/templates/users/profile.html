@@ -4,9 +4,11 @@
 
 {% block page_title %}Profile{% endblock page_title%}
 {% block page_title_details %}<li class="list-inline-item text-white h3 font-secondary nasted">{{request.user.userprofile.name}}</li>{% endblock page_title_details%}
+{% block page_button %}<a href="{% url 'profile-update' %}" class="btn btn-sm btn-primary-outline">Edit profile</a>{% endblock page_button %}
 
 {% block content %}
  
+
 <!-- teacher details -->
 <section class="section">
   <div class="container">

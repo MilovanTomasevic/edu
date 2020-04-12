@@ -8,8 +8,8 @@ from .models import UserProfile , Category , Field, Interests, Role
 class UsersAdmin(admin.ModelAdmin):
     list_display = ['user', 'name' , 'fields' , 'category' , 'address']
     list_display_links = ['user']
-    search_fields = ['name' , 'fields', 'interests', 'role']
-    list_filter = ['category' , 'fields', 'interests', 'role']
+    search_fields = ['role', 'name' , 'fields', 'interests']
+    list_filter = ['role', 'category' , 'fields', 'interests']
     filter_horizontal = ('interests','role',)
 
 

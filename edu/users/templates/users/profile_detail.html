@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block page_title %}Profile{% endblock page_title%}
+{% block page_title_details %}<li class="list-inline-item text-white h3 font-secondary nasted">{{object.name}}</li>{% endblock page_title_details%}
+
+{% block content %}
+ 
+<!-- teacher details -->
+<section class="section">
+  <div class="container">
+    <div class="row">
+      <form method="POST"></form>
+      <div class="col-md-5 mb-5">
+        <img class="img-fluid w-100" src="{{object.image.url}}" alt="teacher">
+      </div>
+      <div class="col-md-6 mb-5">
+        <h3>{{object.name}}</h3>
+        <h6 class="text-color">{{object.fields}}</h6>
+        <p class="mb-5">{{object.description}}</p>
+        <div class="row">
+          <div class="col-md-6 mb-5 mb-md-0">
+            <h4 class="mb-4">CONTACT INFO:</h4>
+            <ul class="list-unstyled">
+              <li class="mb-3"><a class="text-color" href="mailto:{{object.user.email}}"><i class="ti-email mr-2"></i>{{object.user.email}}</a></li>
+              <li class="mb-3"><a class="text-color" href="callto:{{object.phone}}"><i class="ti-mobile mr-2"></i>{{object.phone}}</a></li>
+              <li class="mb-3"><a class="text-color" href="#"><i class="ti-facebook mr-2"></i>{{object.facebook}}</a></li>
+              <li class="mb-3"><a class="text-color" href="#"><i class="ti-twitter-alt mr-2"></i>{{object.twitter}}</a></li>
+              <li class="mb-3"><a class="text-color" href="#"><i class="ti-skype mr-2"></i>{{object.skype}}</a></li>
+              <li class="mb-3"><a class="text-color" href="#"><i class="ti-world mr-2"></i>{{object.site}}</a></li>
+              <li class="mb-3"><a class="text-color" href="#"><i class="ti-location-pin mr-2"></i>{{object.address}}</a></li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <h4 class="mb-4">SUMMARY OF ACTIVITIES/INTERESTS</h4>
+            <ul class="list-unstyled">
+              {% for interest in object.interests.all %}<li class="mb-3">{{interest}}</li>{% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <h4 class="mb-4">BIOGRAPHY</h4>
+        <p class="mb-5">{{object.biography}}</p>
+      </div>
+    </div>
+  </div>
+</form>
+</div>
+</div>
+</section>
+<!-- /research -->
+
+{% endblock content %}

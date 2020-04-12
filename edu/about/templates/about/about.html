@@ -71,7 +71,7 @@
             <div class="card border-0 rounded-0 hover-shadow">
               <img class="card-img-top rounded-0" src="{{people.image.url}}" alt="teacher">
               <div class="card-body">
-                <a href="{% url 'ecenter-teacher-single' %}">
+                <a href="{% url 'profile-detail' people.id %}"><!-- {% for role in people.role.all %}{% if role.name != 'user' %}{% url 'profile-detail' people.id %}{%else%}{% url 'ecenter-home' %}{%endif%}{% endfor %} -->
                   <h4 class="card-title">{{people.name}}</h4>
                 </a>
                 <div class="d-flex justify-content-between">

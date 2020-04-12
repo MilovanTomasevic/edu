@@ -34,14 +34,6 @@ class UserProfile(models.Model):
             img.thumbnail(output_size)
             img.save(self.image.path)
 
-# @receiver(post_save, sender=settings.AUTH_USER_MODEL)
-# def create_user_profile(sender, instance, created, **kwargs):
-#     if created:
-#         UserProfile.objects.create(user=instance)
-
-# @receiver(post_save, sender=settings.AUTH_USER_MODEL)
-# def save_user_profile(sender, instance, **kwargs):
-#     instance.userprofile.save()
 
 class Category(models.Model):
     category_name = models.CharField(max_length=30)
