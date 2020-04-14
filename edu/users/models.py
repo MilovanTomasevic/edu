@@ -33,7 +33,37 @@ class UserProfile(models.Model):
             output_size = (300,300)
             img.thumbnail(output_size)
             img.save(self.image.path)
+    
 
+    def is_check_role(self, role):
+        roles = self.user.userprofile.role.all()
+        list_roles = []
+
+        for r in roles:
+            list_roles.append(r.name)
+        if role in list_roles:
+            return True
+        return False
+
+    def is_admin(self):
+        roles = self.user.userprofile.role.all()
+        admins= []
+
+        for r in roles:
+            admins.append(r.name)
+        if 'admin' in admins:
+            return True
+        return False
+
+    def is_teacher(self):
+        roles = self.user.userprofile.role.all()
+        teachers= []
+
+        for r in roles:
+            teachers.append(r.name)
+        if 'teacher' in teachers:
+            return True
+        return False
 
 class Category(models.Model):
     category_name = models.CharField(max_length=30)
@@ -81,4 +111,6 @@ def userprofile_receiver(sender, instance, created, *args, **kwargs):
         instance.userprofile.save()
 
 post_save.connect(userprofile_receiver, sender=settings.AUTH_USER_MODEL)
+
+
 
