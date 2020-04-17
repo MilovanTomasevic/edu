@@ -5,12 +5,6 @@ from django.http import HttpResponse
 def home(request):
     return render(request, 'index.html')
 
-def courses(request):
-    return render(request, 'courses.html')
-
-def course_single(request):
-    return render(request, 'course-single.html')
-
 def events(request):
     return render(request, 'events.html')
 

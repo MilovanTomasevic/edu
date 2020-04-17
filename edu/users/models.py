@@ -19,10 +19,10 @@ class UserProfile(models.Model):
     address = models.CharField(max_length=50)
     interests = models.ManyToManyField('Interests')
     biography = models.TextField()
-    role = models.ManyToManyField('Role')
+    role = models.ManyToManyField('Role') # models.ForeignKey('Role', related_name='roles')
 
     def __str__(self):
-        return self.user.username
+        return f'{self.user.username} - {self.name}'  
     
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

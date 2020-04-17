@@ -67,7 +67,7 @@
             <li {% if about.about_heading_title %} class="nav-item active" {% else %} class="nav-item @@about" {% endif %}>
               <a class="nav-link" href="{% url 'ecenter-about' %}">About</a>
             </li>
-            <li {% if about.about_heading_title %} class="nav-item active" {% else %} class="nav-item @@courses" {% endif %}>
+            <li {% if header.courses_heading_title %} class="nav-item active" {% else %} class="nav-item @@courses" {% endif %}>
               <a class="nav-link" href="{% url 'ecenter-courses' %}">COURSES</a>
             </li>
             <li {% if about.about_heading_title %} class="nav-item active" {% else %} class="nav-item @@events" {% endif %}>
@@ -88,7 +88,6 @@
                 <a class="dropdown-item" href="{% url 'ecenter-notice-single' %}">Notice Details</a>
                 <a class="dropdown-item" href="{% url 'ecenter-research' %}">Research</a>
                 <a class="dropdown-item" href="{% url 'ecenter-scholarship' %}">Scholarship</a>
-                <a class="dropdown-item" href="{% url 'ecenter-course-single' %}">Course Details</a>
                 <a class="dropdown-item" href="{% url 'ecenter-event-single' %}">Event Details</a>
                 <a class="dropdown-item" href="#">Blog Details</a>
               </div>

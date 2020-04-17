@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'users',
     'about',
     'contact',
+    'courses',
 
 ]
 
@@ -61,6 +62,10 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries':{
+            'listutil': 'courses.templatestags.listutil',
+
+            }
         },
     },
 ]
