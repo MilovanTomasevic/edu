@@ -102,7 +102,7 @@
           <div class="media mb-2 mb-sm-0">
             <img class="mr-4 img-fluid" src="{{ teacher.image.url }}" height="72" width="72" alt="Teacher">
             <div class="media-body">
-              <h4 class="mt-0">{{ teacher.name }}</h4>
+              <a href="{% url 'profile-detail' teacher.id %}"><h4 class="mt-0">{{ teacher.name }}</h4></a>
               {{ teacher.fields }}
             </div>
           </div>
