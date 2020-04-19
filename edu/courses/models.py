@@ -1,6 +1,8 @@
 from django.db import models
 from django.urls import reverse
 from django.core.validators import MaxValueValidator, MinValueValidator 
+from django.db.models.signals import post_save
+from users.models import Role, UserProfile
 
 # Create your models here.
 
@@ -80,3 +82,11 @@ class HeaderCourses(models.Model):
         verbose_name = 'Header'
         verbose_name_plural = 'Headers'
         db_table = 'HeaderCourses'
+
+def course_created(instance, **kwargs):
+    if kwargs["created"]:
+        # instance.role.add(Role.objects.get(pk=2))
+        print("Kurs kreiran ! ")
+
+
+post_save.connect(course_created, sender=Course)

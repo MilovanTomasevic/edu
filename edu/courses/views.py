@@ -20,3 +20,11 @@ class CoursesListView(ListView):
 class CourseDetailView(DetailView):
     model = Course
     template_name = 'courses/course_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(CourseDetailView, self).get_context_data(**kwargs)
+        context.update({
+            'rcourses': Course.objects.order_by('course_date')[:3],
+
+        })
+        return context
