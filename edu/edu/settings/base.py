@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'ecenter.apps.EcenterConfig',
+    'django_extensions',
 
     'django.contrib.sites',
 
