@@ -1,9 +1,17 @@
 from django.contrib import admin
+from django import forms
 
+from .models import UserProfile, Role
 # Register your models here.
 from .models import Course, HeaderCourses, Category, Requirements, Apply, FeesAndFunding
 
+
+class CourseForm(forms.ModelForm):
+    teacher  = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple, help_text="Choose Teacher(s)", queryset=UserProfile.objects.filter(role__in=[Role.objects.get(pk=2)]))    
+
 class CourseAdmin(admin.ModelAdmin):
+
+    form = CourseForm
     list_display = ['title', 'category', 'course_date', 'duration', 'price']
     list_display_links = ['title']
     search_fields = ['title', 'category', 'course_date', 'duration', 'price']
