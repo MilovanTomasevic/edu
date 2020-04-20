@@ -13,7 +13,7 @@ class Course(models.Model):
     image = models.ImageField(default='courses/default.jpg', upload_to='users')
     course_date = models.DateField()
     duration = models.PositiveIntegerField(default=30, validators=[MinValueValidator(1), MaxValueValidator(1000)])
-    price = models.DecimalField(max_digits=6, decimal_places=2)
+    price = models.DecimalField(default=99.99, max_digits=6, decimal_places=2)
     about_title = models.CharField(max_length=100)
     content = models.TextField()
     requirements = models.ManyToManyField('Requirements')
