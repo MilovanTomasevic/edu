@@ -18,6 +18,7 @@
 <section class="section">
   <div class="container">
     <div class="row justify-content-center align-self-center">
+      {{ form.media }}
       <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
         {% csrf_token %}
         {{ form|crispy }}

@@ -18,7 +18,7 @@
       <div class="col-md-6 mb-5">
         <h3>{{object.name}}</h3>
         <h6 class="text-color">{{object.fields}}</h6>
-        <p class="mb-5">{{object.description}}</p>
+        <p class="mb-5">{{object.description | safe }}</p>
         <div class="row">
           <div class="col-md-6 mb-5 mb-md-0">
             <h4 class="mb-4">CONTACT INFO:</h4>
@@ -42,7 +42,7 @@
       </div>
       <div class="col-12">
         <h4 class="mb-4">BIOGRAPHY</h4>
-        <p class="mb-5">{{object.biography}}</p>
+        <p class="mb-5">{{ object.biography | safe }}</p>
       </div>
     </div>
   </div>

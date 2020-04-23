@@ -2,7 +2,7 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.conf import settings
 from PIL import Image
-
+from tinymce import HTMLField
 
 class UserProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -10,7 +10,7 @@ class UserProfile(models.Model):
     image = models.ImageField(default='users/default.png', upload_to='users')
     fields = models.ForeignKey('Field' ,null=True ,on_delete=models.SET_NULL)
     category = models.ForeignKey('Category' ,null=True ,on_delete=models.SET_NULL)
-    description = models.TextField()
+    description = HTMLField('Description')
     phone = models.CharField(max_length=50)
     facebook = models.CharField(max_length=50)
     twitter = models.CharField(max_length=50)
@@ -18,7 +18,7 @@ class UserProfile(models.Model):
     site = models.CharField(max_length=50)
     address = models.CharField(max_length=50)
     interests = models.ManyToManyField('Interests')
-    biography = models.TextField()
+    biography = HTMLField('Biography')
     role = models.ManyToManyField('Role') # models.ForeignKey('Role', related_name='roles')
 
     def __str__(self):

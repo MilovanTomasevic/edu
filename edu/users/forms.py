@@ -5,7 +5,11 @@ from .models import UserProfile, Interests, Role
 from django.conf import settings
 from PIL import Image
 from django.contrib.auth.decorators import login_required
+from tinymce import TinyMCE
 
+class TinyMCEWidget(TinyMCE):
+    def use_required_attribute(self, *args):
+        return False
 class SignupForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(SignupForm, self).__init__(*args, **kwargs)
@@ -15,8 +19,9 @@ class SignupForm(forms.ModelForm):
     first_name = forms.CharField(max_length=100)
     last_name = forms.CharField(max_length=100)
 
+    description = forms.CharField(widget=TinyMCEWidget(attrs={'required': False, 'cols': 30, 'rows': 10}))
     interests  = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple, help_text="Choose your interests", queryset=Interests.objects.all())
-    
+    biography = forms.CharField(widget=TinyMCEWidget(attrs={'required': False, 'cols': 30, 'rows': 10}))
     class Meta:
         model = UserProfile
         fields = ('first_name', 'last_name',  'name', 'fields', 'category', 'description', 'phone', 'facebook', 'twitter', 'skype', 'site', 'address', 'interests' ,'biography') #'image'
@@ -27,14 +32,14 @@ class SignupForm(forms.ModelForm):
         }
         widgets = {
             'name': forms.TextInput(attrs={'placeholder': 'Enter full name'}),
-            'description': forms.TextInput(attrs={'placeholder': 'Paste description from your CV'}),
+            # 'description': forms.TextInput(attrs={'placeholder': 'Paste description from your CV'}),
             'phone': forms.TextInput(attrs={'placeholder': 'Enter phone'}),
             'facebook': forms.TextInput(attrs={'placeholder': 'Enter facebook link'}),
             'twitter': forms.TextInput(attrs={'placeholder': 'Enter twitter link'}),
             'skype': forms.TextInput(attrs={'placeholder': 'Enter your skype id'}),
             'site': forms.TextInput(attrs={'placeholder': 'Enter your site'}),
             'address': forms.TextInput(attrs={'placeholder': 'Enter address'}),
-            'biography': forms.TextInput(attrs={'placeholder': 'Paste biography from your CV'}),
+            # 'biography': forms.TextInput(attrs={'placeholder': 'Paste biography from your CV'}),
         }
 
 
@@ -72,7 +77,9 @@ class UserUpdateForm(forms.ModelForm):
 
 class ProfileUpdateForm(forms.ModelForm):
 
+    description = forms.CharField(widget=TinyMCEWidget(attrs={'required': False, 'cols': 30, 'rows': 10})) 
     interests  = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple, help_text="Choose your interests", queryset=Interests.objects.all())
+    biography = forms.CharField(widget=TinyMCEWidget(attrs={'required': False, 'cols': 30, 'rows': 10}))  
 
     class Meta:
         model = UserProfile
