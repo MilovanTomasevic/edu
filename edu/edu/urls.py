@@ -11,7 +11,8 @@ urlpatterns = [
     path('profile/', include('users.urls')),
     path('about/', include('about.urls')),
     path('contact/', include('contact.urls')),
-    path('courses/', include('courses.urls'))
+    path('courses/', include('courses.urls')),
+    path('tinymce/', include('tinymce.urls'))
 ]
 
 if settings.DEBUG:

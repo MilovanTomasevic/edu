@@ -30,7 +30,7 @@
       <!-- blog contect -->
       <div class="col-12 mb-5">
         <h2>{{ object.title }}</h2>
-        <p>{{ object.content }}</p>
+        <p>{{ object.content | safe }}</p>
       </div>
       <!-- comment box -->
       <div class="col-12">
