@@ -3,8 +3,8 @@
 {% load static %}
 {% load listutil %}
 
-{% block page_title %}Course Details{% endblock page_title%}
-{% block page_title_details %}<li class="list-inline-item text-white h3 font-secondary nasted">{{ object.title }}</li>{% endblock page_title_details%}
+{% block page_title %}<a class="h2 text-primary font-secondary" href="{% url 'ecenter-courses' %}">Courses</a>{% endblock page_title %}
+{% block page_title_details %}<li class="list-inline-item text-white h3 font-secondary nasted">{{ object.title }}</li>{% endblock page_title_details %}
 
 {% block content %}
 
@@ -14,7 +14,7 @@
     <div class="row">
       <div class="col-12 mb-4">
         <!-- course thumb -->
-        <img src="{{object.image.url}}" class="img-fluid w-100">
+        <img src="{{ object.image.url }}" class="img-fluid w-100">
       </div>
     </div>
     <!-- course info -->

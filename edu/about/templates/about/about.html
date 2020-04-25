@@ -2,8 +2,8 @@
 
 {% load static %}
 
-{% block page_title %}{{about.about_heading_title}}{% endblock page_title%}
-{% block page_title_details %}{{about.about_heading_message}}{% endblock page_title_details%}
+{% block page_title %}<a class="h2 text-primary font-secondary" href="{% url 'ecenter-about' %}">{{ about.about_heading_title }}</a>{% endblock page_title %}
+{% block page_title_details %}<li class="list-inline-item text-white h3 font-secondary nasted">{{ about.about_heading_message }}</li>{% endblock page_title_details %}
 
 {% block content %}
 
@@ -13,8 +13,8 @@
     <div class="row">
       <div class="col-12">
         <img class="img-fluid w-100 mb-4" src="{{about.image.url}}" alt="about image">
-        <h2 class="section-title">{{about.title}}</h2>
-        <p>{{about.content}}</p>
+        <h2 class="section-title">{{ about.title }}</h2>
+        <p>{{ about.content }}</p>
       </div>
     </div>
   </div>

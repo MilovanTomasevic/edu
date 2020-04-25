@@ -50,10 +50,10 @@
         <div class="row">
           <div class="col-md-8">
             <ul class="list-inline custom-breadcrumb">
-              <li class="list-inline-item"><a class="h2 text-primary font-secondary">{% block page_title %}{% endblock page_title%}</a></li>
-              <li class="list-inline-item text-white h3 font-secondary @@nasted"></li>
+              <li class="list-inline-item">{% block page_title %}{% endblock page_title %}</li>
+              <li class="list-inline-item text-white h3 font-secondary @@nasted">{% block page_title_details %}{% endblock page_title_details %}</li>
             </ul>
-            <p class="text-lighten">{% block page_title_details %}{% endblock page_title_details%}</p>
+            <p class="text-lighten">{% block more_data %}{% endblock more_data %} </p>
             {% block page_button %}{% endblock page_button %}
           </div>
         </div>

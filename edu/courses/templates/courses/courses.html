@@ -3,8 +3,8 @@
 {% load static %}
 {% load tz %}
 
-{% block page_title %}{{header.courses_heading_title}}{% endblock page_title%}
-{% block page_title_details %}{{header.courses_heading_message}}{% endblock page_title_details%}
+{% block page_title %}<a class="h2 text-primary font-secondary" href="{% url 'ecenter-courses' %}">{{ header.courses_heading_title }}</a>{% endblock page_title %}
+{% block page_title_details %}<li class="list-inline-item text-white h3 font-secondary nasted">{{ header.courses_heading_message }}</li>{% endblock page_title_details %}
 
 {% block content %}
 
@@ -18,16 +18,16 @@
       {% if todays_date < course.course_date|date:"Y-m-d" %}
       <div class="col-lg-4 col-sm-6 mb-5">
         <div class="card p-0 border-primary rounded-0 hover-shadow">
-          <img class="card-img-top rounded-0" src="{{course.image.url}}" alt="course thumb">
+          <img class="card-img-top rounded-0" src="{{ course.image.url }}" alt="course thumb">
           <div class="card-body">
             <ul class="list-inline mb-2">
               <li class="list-inline-item"><i class="ti-calendar mr-1 text-color"></i>{{ course.course_date|date:"F d, Y" }}</li>
-              <li class="list-inline-item"><a class="text-color" href="#">{{course.category}}</a></li>
+              <li class="list-inline-item"><a class="text-color" href="#">{{ course.category }}</a></li>
             </ul>
             <a href="{% url 'course-detail' course.id %}">
-              <h4 class="card-title">{{course.title}}</h4>
+              <h4 class="card-title">{{ course.title }}</h4>
             </a>
-            <p class="card-text mb-4">{{course.short_content}}</p>
+            <p class="card-text mb-4">{{ course.short_content }}</p>
             <a href="{% url 'course-detail' course.id %}" class="btn btn-primary btn-sm">Apply now</a>
           </div>
         </div>
