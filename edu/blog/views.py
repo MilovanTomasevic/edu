@@ -1,4 +1,5 @@
-from .models import Post, HeaderBlog
+from django.db.models import Count
+from .models import Post, HeaderBlog, Category
 from .forms import PostForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404, redirect, reverse
@@ -10,7 +11,7 @@ from django.views.generic import (
     DetailView,
     CreateView,
     UpdateView,
-    DeleteView
+    DeleteView,
 )
 
 def blog_home(request):
@@ -18,6 +19,10 @@ def blog_home(request):
         'posts': Post.objects.all(),
     }
     return render(request, 'blog/blog.html', context)
+
+def get_category_count():
+    queryset = Post.objects.values('categories__title').annotate(Count('categories__title'))
+    return queryset
 
 # def num_post(request):
 #     user = get_object_or_404(User, username=request.kwargs.get('username'))
@@ -33,9 +38,11 @@ class PostListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(PostListView, self).get_context_data(**kwargs)
+        category_count = get_category_count()
         context.update({
             'posts': Post.objects.order_by('-date_posted'),
             'header': HeaderBlog.objects.last(),
+            'category_count' : category_count
         })
         return context
 
@@ -54,14 +61,28 @@ class UserPostListView(ListView):
         })
         return context
 
+class CategoryesPostListView(ListView):
+    model = Post
+
+    def get_context_data(self, **kwargs):
+        context = super(CategoryesPostListView, self).get_context_data(**kwargs)
+        posts_by_category = Post.objects.filter(categories__title=self.kwargs.get('categories'))
+        category_count = get_category_count()
+        context.update({
+            'posts': posts_by_category,
+            'header': HeaderBlog.objects.last(),
+            'category_count' : category_count
+        })
+        return context
+
 class PostDetailView(DetailView):
     model = Post
 
     def get_context_data(self, **kwargs):
         context = super(PostDetailView, self).get_context_data(**kwargs)
+        rposts = Post.objects.order_by('-date_posted')[:3]
         context.update({
-            'rposts': Post.objects.order_by('-date_posted')[:3],
-
+            'rposts': rposts,
         })
         return context
 
