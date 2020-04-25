@@ -4,20 +4,30 @@ from django.conf import settings
 from django.urls import reverse
 from tinymce import HTMLField
 
+class Category(models.Model):
+    title = models.CharField(max_length=20)
 
+    def __str__(self):
+        return self.title
 class Post(models.Model):
     title = models.CharField(max_length=100)
     short_content = models.CharField(max_length=100)
     content = HTMLField('Content')
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='posts/', null=True)
+    image = models.ImageField(upload_to='posts/', default='posts/default.png')
+    categories = models.ManyToManyField(Category)
 
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
         return reverse('post-detail', kwargs={'pk': self.pk})
+    
+    def save(self):
+        super().save()
+
+
 
 class HeaderBlog(models.Model):
     blog_heading_title = models.CharField(max_length=50)

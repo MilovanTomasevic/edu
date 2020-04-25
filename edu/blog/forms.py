@@ -1,6 +1,6 @@
 from django import forms
 from tinymce import TinyMCE
-from .models import Post
+from .models import Post, Category
 
 
 class TinyMCEWidget(TinyMCE):
@@ -14,6 +14,8 @@ class PostForm(forms.ModelForm):
         )
     )
 
+    categories  = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple, help_text="Choose categories", queryset=Category.objects.all())
+
     class Meta:
         model = Post
-        fields = '__all__'
+        fields = ('title', 'short_content', 'content', 'date_posted', 'image', 'categories') #author is request.user

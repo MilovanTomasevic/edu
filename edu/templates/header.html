@@ -37,8 +37,18 @@
             <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="{% url 'ecenter-research' %}">research</a></li>
             <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="{% url 'ecenter-scholarship' %}">SCHOLARSHIP</a></li>
             {% if user.is_authenticated %}
-            <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="{% url 'ecenter-profile' %}">{{request.user.userprofile.name}} Profile</a></li>
-            <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="{% url 'account_email' %}">Change E-mail</a></li>
+            <li class="list-inline-item dropdown view">
+                <a class="list-inline-item dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  {{request.user.userprofile.name}}
+                </a>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="{% url 'ecenter-profile' %}">Profile</a>
+                  <a class="dropdown-item" class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="{% url 'account_email' %}">Change E-mail</a>
+                  <a class="dropdown-item" class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="{% url 'post-create' %}">New Post</a>
+                  
+                </div>
+            </li>
             <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="{% url 'account_logout' %}">Sign Out</a></li>
             {% else %}
             <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="{% url 'account_login' %}">Sign in</a></li>
