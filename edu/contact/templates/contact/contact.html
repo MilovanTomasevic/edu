@@ -20,7 +20,7 @@
       <div class="col-lg-7 mb-4 mb-lg-0">
         <form method="post">
           {% csrf_token %}
-          {{ contact_form|crispy} }
+          {{ contact_form|crispy }}
           <button type="submit" value="send" class="btn btn-primary">SEND MESSAGE</button>
         </form>
       </div>
