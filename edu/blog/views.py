@@ -91,6 +91,11 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     # fields = ('title', 'short_content', 'content', 'date_posted', 'image', 'categories')
     form_class = PostForm
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'New'
+        return context
+
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
@@ -103,6 +108,11 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Update'
+        return context
 
     def test_func(self):
         post = self.get_object()
