@@ -5,11 +5,10 @@
 
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
 
-{% block page_title %}{% trans "Sign In" %}{% endblock page_title%}
-{% block page_title_details %}{% blocktrans %}If you have not created an account yet, then please
-          <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}{% endblock page_title_details%}
-
-
+{% block page_title %}<a class="h2 text-primary font-secondary">{% trans "Sign In" %}</a>{% endblock page_title %}
+{% block page_title_details %}<li class="list-inline-item text-white h3 font-secondary nasted">{% blocktrans %}If you have not created an account yet, then please
+  <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</li>{% endblock page_title_details %}
+          
 {% block content %}
   <main>
     <div class="container">
