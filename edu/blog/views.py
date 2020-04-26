@@ -1,5 +1,5 @@
 from django.db.models import Count
-from .models import Post, HeaderBlog, Category
+from .models import Post, HeaderBlog, Category, PostView
 from .forms import PostForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404, redirect, reverse
@@ -85,6 +85,12 @@ class PostDetailView(DetailView):
             'rposts': rposts,
         })
         return context
+    
+    def get_object(self):
+        obj = super().get_object()
+        if self.request.user.is_authenticated:
+            PostView.objects.get_or_create(user=self.request.user, post=obj)
+        return obj
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post

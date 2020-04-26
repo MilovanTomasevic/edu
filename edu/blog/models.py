@@ -3,12 +3,23 @@ from django.utils import timezone
 from django.conf import settings
 from django.urls import reverse
 from tinymce import HTMLField
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 class Category(models.Model):
     title = models.CharField(max_length=20)
 
     def __str__(self):
         return self.title
+
+class PostView(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey('Post', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user.username
+
 class Post(models.Model):
     title = models.CharField(max_length=100)
     short_content = models.CharField(max_length=100)
@@ -26,6 +37,10 @@ class Post(models.Model):
     
     def save(self):
         super().save()
+
+    @property
+    def view_count(self):
+        return PostView.objects.filter(post=self).count()
 
 
 
