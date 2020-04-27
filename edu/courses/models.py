@@ -1,12 +1,14 @@
 from django.db import models
 from django.urls import reverse
 from django.core.validators import MaxValueValidator, MinValueValidator 
-from django.db.models.signals import post_save
 from users.models import Role, UserProfile
+from django.template.defaultfilters import slugify
+from tinymce import HTMLField
 
 # Create your models here.
 
 class Course(models.Model):
+    slug = models.SlugField(max_length=255, unique=True, default='course-slug')
     title = models.CharField(max_length=100)
     short_content = models.CharField(max_length=200)
     category = models.ForeignKey('Category' ,null=True ,on_delete=models.SET_NULL)
@@ -15,7 +17,7 @@ class Course(models.Model):
     duration = models.PositiveIntegerField(default=30, validators=[MinValueValidator(1), MaxValueValidator(1000)])
     price = models.DecimalField(default=99.99, max_digits=6, decimal_places=2)
     about_title = models.CharField(max_length=100)
-    content = models.TextField()
+    content = HTMLField('Content')
     requirements = models.ManyToManyField('Requirements')
     apply = models.ManyToManyField('Apply')
     fees_and_funding = models.ManyToManyField('FeesAndFunding')
@@ -25,8 +27,36 @@ class Course(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('course-detail', kwargs={'pk': self.pk})
+        return reverse('course-detail', kwargs={'slug': self.slug})
+    
+    def save(self, *args, **kwargs):
+        self.slug = str(self.course_date)+ "-" + slugify(self.title)
+        return super(Course, self).save(*args, **kwargs)
 
+    @property
+    def lessons(self):
+        return self.lesson_set.all().order_by('position')
+
+class Lesson(models.Model):
+    slug = models.SlugField(max_length=255, unique=True, default='lesson-slug')
+    title = models.CharField(max_length=120)
+    course = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True)
+    position = models.IntegerField()
+    video_url = models.CharField(max_length=200)
+    thumbnail = models.ImageField()
+
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return reverse('lesson-detail',
+                        kwargs={'course_slug': self.course.slug,
+                                'lesson_slug': self.slug
+                       })
+    
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)+ "-" + str(self.position)
+        return super(Lesson, self).save(*args, **kwargs)
 
 class Category(models.Model):
     category_name = models.CharField(max_length=30)
@@ -82,11 +112,3 @@ class HeaderCourses(models.Model):
         verbose_name = 'Header'
         verbose_name_plural = 'Headers'
         db_table = 'HeaderCourses'
-
-def course_created(instance, **kwargs):
-    if kwargs["created"]:
-        # instance.role.add(Role.objects.get(pk=2))
-        print("Kurs kreiran ! ")
-
-
-post_save.connect(course_created, sender=Course)

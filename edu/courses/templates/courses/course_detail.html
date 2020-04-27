@@ -64,6 +64,14 @@
     <!-- course details -->
     <div class="row">
       <div class="col-12 mb-4">
+          <h3>Lessons</h3>
+          <p>
+            {% for lesson in object.lessons %}
+              <li><a class="text-color" href="{{ lesson.get_absolute_url }}">{{ lesson.title }}</a></li>
+            {% endfor %}
+          </p>
+      </div>
+      <div class="col-12 mb-4">
         <h3>{{ object.about_title }}</h3>
         <p>{{ object.content }}</p>
       </div>

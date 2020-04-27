@@ -1,6 +1,8 @@
 from django.shortcuts import render
-from .models import Course, HeaderCourses
-from django.views.generic import  DetailView, ListView
+from .models import Course, HeaderCourses, Lesson
+from django.views.generic import  DetailView, ListView, View
+from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 class CoursesListView(ListView):
     model = Course
@@ -25,6 +27,13 @@ class CourseDetailView(DetailView):
         context = super(CourseDetailView, self).get_context_data(**kwargs)
         context.update({
             'rcourses': Course.objects.order_by('course_date')[:3],
-
         })
         return context
+
+class LessonDetailView(LoginRequiredMixin, View):
+
+    def get(self, request, course_slug, lesson_slug, *args, **kwargs):
+        course = get_object_or_404(Course, slug=course_slug)
+        lesson = get_object_or_404(Lesson, slug=lesson_slug)
+        context = {'object': lesson}
+        return render(request, "courses/lesson_detail.html", context)
