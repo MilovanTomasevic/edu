@@ -24,7 +24,7 @@ class SignupForm(forms.ModelForm):
     biography = forms.CharField(widget=TinyMCEWidget(attrs={'required': False, 'cols': 30, 'rows': 10}))
     class Meta:
         model = UserProfile
-        fields = ('first_name', 'last_name',  'name', 'fields', 'category', 'description', 'phone', 'facebook', 'twitter', 'skype', 'site', 'address', 'interests' ,'biography') #'image'
+        fields = ('first_name', 'last_name',  'name','image', 'fields', 'category', 'description', 'phone', 'facebook', 'twitter', 'skype', 'site', 'address', 'interests' ,'biography')
         help_texts = {
             # 'image': 'Upload profile image',
             'fields': 'Choose your fields',
@@ -50,7 +50,7 @@ class SignupForm(forms.ModelForm):
         user.save()
 
         user.userprofile.name = self.cleaned_data['name']
-        # user.userprofile.image = self.cleaned_data.get('image')
+        user.userprofile.image = self.cleaned_data.get('image')
         user.userprofile.fields = self.cleaned_data['fields']
         user.userprofile.category = self.cleaned_data['category']
         user.userprofile.description = self.cleaned_data['description']
