@@ -12,7 +12,8 @@ urlpatterns = [
     path('about/', include('about.urls')),
     path('contact/', include('contact.urls')),
     path('courses/', include('courses.urls')),
-    path('tinymce/', include('tinymce.urls'))
+    path('tinymce/', include('tinymce.urls')),
+    path('research/', include('research.urls'))
 ]
 
 if settings.DEBUG:
