@@ -12,7 +12,7 @@ class Course(models.Model):
     title = models.CharField(max_length=100)
     short_content = models.CharField(max_length=200)
     category = models.ForeignKey('Category' ,null=True ,on_delete=models.SET_NULL)
-    image = models.ImageField(default='courses/default.jpg', upload_to='users')
+    image = models.ImageField(default='courses/default.jpg', upload_to='courses')
     course_date = models.DateField()
     duration = models.PositiveIntegerField(default=30, validators=[MinValueValidator(1), MaxValueValidator(1000)])
     price = models.DecimalField(default=99.99, max_digits=6, decimal_places=2)
@@ -43,7 +43,7 @@ class Lesson(models.Model):
     course = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True)
     position = models.IntegerField()
     video_url = models.CharField(max_length=200)
-    thumbnail = models.ImageField()
+    thumbnail = models.ImageField(default='courses/default.jpg', upload_to='courses')
 
     def __str__(self):
         return self.title
