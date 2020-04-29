@@ -17,9 +17,6 @@ def notice(request):
 def notice_single(request):
     return render(request, 'notice-single.html')
 
-def scholarship(request):
-    return render(request, 'scholarship.html')
-
 def teacher(request):
     return render(request, 'teacher.html')
 

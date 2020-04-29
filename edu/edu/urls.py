@@ -13,7 +13,8 @@ urlpatterns = [
     path('contact/', include('contact.urls')),
     path('courses/', include('courses.urls')),
     path('tinymce/', include('tinymce.urls')),
-    path('research/', include('research.urls'))
+    path('research/', include('research.urls')),
+    path('scholarship/', include('scholarship.urls')),
 ]
 
 if settings.DEBUG:
