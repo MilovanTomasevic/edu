@@ -3,7 +3,7 @@
 {% load crispy_forms_tags %}
 {% load static %}
 
-{% block page_title %}Edit Profile{% endblock page_title%}
+{% block page_title %}<a class="h2 text-primary font-secondary" href="{% url 'ecenter-courses' %}">Edit Profile</a>{% endblock page_title %}
 {% block page_title_details %}<li class="list-inline-item text-white h3 font-secondary nasted">{{request.user.userprofile.name}}</li>{% endblock page_title_details%}
 
 {% block content %}
