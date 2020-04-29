@@ -1,11 +1,11 @@
 from django.db import models
-
+from tinymce import HTMLField
 # Create your models here.
 class ContactDetails(models.Model):
     contact_heading_title = models.CharField(max_length=50)
     contact_heading_message = models.CharField(max_length=150)
     title = models.CharField(max_length=50)
-    content = models.TextField()
+    content = HTMLField('Content')
     phone_number = models.CharField(max_length=15)
     email = models.EmailField()
     address = models.CharField(max_length=50)

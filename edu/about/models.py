@@ -1,14 +1,15 @@
 from django.db import models
+from tinymce import HTMLField
 
 class About(models.Model):
     about_heading_title = models.CharField(max_length=50)
     about_heading_message = models.CharField(max_length=150)
     image = models.ImageField(default='about/default.jpg', upload_to='about')
     title =models.CharField(max_length=150)
-    content = models.TextField()
+    content = HTMLField('Content')
     funfacts = models.ManyToManyField('Funfacts')
     stories_title = models.CharField(max_length=50)
-    stories_content = models.TextField()
+    stories_content = HTMLField('Stories Content')
     story_backgroung = models.ImageField(default='about/default.jpg', upload_to='about')
     video = models.CharField(max_length=50)
     title_people = models.CharField(max_length=50)

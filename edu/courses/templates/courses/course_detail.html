@@ -73,7 +73,7 @@
       </div>
       <div class="col-12 mb-4">
         <h3>{{ object.about_title }}</h3>
-        <p>{{ object.content }}</p>
+        <p>{{ object.content | safe }}</p>
       </div>
       <div class="col-12 mb-4">
         <h3 class="mb-3">Requirements</h3>
@@ -100,7 +100,7 @@
       </div>
       <div class="col-12 mb-5">
         <h3>Fees and Funding</h3>
-        {% for ff in object.fees_and_funding.all %}<p>{{ ff }}</p>{% endfor %}
+        {% for ff in object.fees_and_funding.all %}<p>{{ ff | safe }}</p>{% endfor %}
       </div>
       <!-- teacher -->
       <div class="col-12">

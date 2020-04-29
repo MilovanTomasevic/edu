@@ -91,7 +91,7 @@ class Apply(models.Model):
         verbose_name_plural = 'Apply'
 
 class FeesAndFunding(models.Model):
-    fees_and_funding = models.TextField()
+    fees_and_funding = HTMLField('Fees And Funding')
 
     def __str__(self):
         return self.fees_and_funding

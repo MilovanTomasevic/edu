@@ -14,7 +14,7 @@
       <div class="col-12">
         <img class="img-fluid w-100 mb-4" src="{{about.image.url}}" alt="about image">
         <h2 class="section-title">{{ about.title }}</h2>
-        <p>{{ about.content }}</p>
+        <p>{{ about.content | safe }}</p>
       </div>
     </div>
   </div>
@@ -50,7 +50,7 @@
       <div class="col-lg-6 col-sm-8">
         <div class="bg-white p-5">
           <h2 class="section-title">{{about.stories_title}}</h2>
-          <p>{{about.stories_content}}</p>
+          <p>{{about.stories_content | safe}}</p>
         </div>
       </div>
     </div>
