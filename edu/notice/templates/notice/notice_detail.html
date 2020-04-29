@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block page_title %}<a class="h2 text-primary font-secondary" href="{% url 'ecenter-notice' %}">Notice</a>{% endblock page_title %}
+{% block page_title_details %}<li class="list-inline-item text-white h3 font-secondary nasted">{{ object.title }}</li>{% endblock page_title_details %}
+{% block more_data %}{{ header.notice_heading_message }}{% endblock more_data %}
+
+{% block content %}
+
+<!-- notice details -->
+<section class="section">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="d-flex">
+          <div class="text-center mr-4">
+            <div class="p-4 bg-primary text-white">
+                <span class="h2 d-block">{{ object.notice_date|date:"d" }}</span>{{ object.notice_date|date:"F,Y" }}
+            </div>
+          </div>
+          <!-- notice content -->
+          <div>
+            <h3 class="mb-4">{{ object.title }}</h3>
+            <p>{{ object.content | safe }}</p>
+            <ul class="list-styled mb-5">
+                {% for r in object.informations.all %}<li>{{ r }}</li>{% endfor %}
+            </ul>
+            <a href="#" class="btn btn-primary">Download</a>
+          </div>
+          <!-- /notice content -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /notice details -->
+{% endblock content %}

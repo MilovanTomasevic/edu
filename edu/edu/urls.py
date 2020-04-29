@@ -15,6 +15,7 @@ urlpatterns = [
     path('tinymce/', include('tinymce.urls')),
     path('research/', include('research.urls')),
     path('scholarship/', include('scholarship.urls')),
+    path('notice/', include('notice.urls')),
 ]
 
 if settings.DEBUG:

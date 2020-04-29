@@ -11,12 +11,6 @@ def events(request):
 def event_single(request):
     return render(request, 'event-single.html')
 
-def notice(request):
-    return render(request, 'notice.html')
-
-def notice_single(request):
-    return render(request, 'notice-single.html')
-
 def teacher(request):
     return render(request, 'teacher.html')
 

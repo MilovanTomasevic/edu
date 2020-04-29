@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'courses',
     'research',
     'scholarship',
+    'notice',
 
 ]
 
