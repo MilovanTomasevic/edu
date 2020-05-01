@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'research',
     'scholarship',
     'notice',
+    'events',
 
 ]
 

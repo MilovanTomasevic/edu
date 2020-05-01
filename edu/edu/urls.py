@@ -16,6 +16,7 @@ urlpatterns = [
     path('research/', include('research.urls')),
     path('scholarship/', include('scholarship.urls')),
     path('notice/', include('notice.urls')),
+    path('events/', include('events.urls')),
 ]
 
 if settings.DEBUG:
