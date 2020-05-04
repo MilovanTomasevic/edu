@@ -42,7 +42,7 @@
                   aria-haspopup="true" aria-expanded="false"><img src=" {{request.user.userprofile.image.url}}" height="30" width="30"></i>
                 </a>
                 <div class="dropdown-menu">
-                  <a class="dropdown-item" class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="{% url 'ecenter-profile' %}"></i>Profile {{request.user.userprofile.name}}</a>
+                  <a class="dropdown-item" class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="{% url 'ecenter-profile' %}"></i>{{request.user.userprofile.name}} Profile</a>
                   <a class="dropdown-item" class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="{% url 'account_email' %}">Change E-mail</a>
                   <a class="dropdown-item" class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="{% url 'post-create' %}">New Post</a>
                   

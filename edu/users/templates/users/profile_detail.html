@@ -11,7 +11,6 @@
 <section class="section">
   <div class="container">
     <div class="row">
-      <form method="POST"></form>
       <div class="col-md-5 mb-5">
         <img class="img-fluid w-100" src="{{object.image.url}}" alt="teacher">
       </div>
@@ -45,10 +44,35 @@
         <p class="mb-5">{{ object.biography | safe }}</p>
       </div>
     </div>
+  </br>
+
+  {% if courses is not None %}
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <h4 class="mb-4">COURSES</h4>
+    </div>
+    <!-- course item -->
+    {% for course in courses %}
+    <div class="col-lg-4 col-sm-6 mb-5">
+      <div class="card p-0 border-primary rounded-0 hover-shadow">
+        <img class="card-img-top rounded-0" src="{{ course.image.url }}" alt="course thumb">
+        <div class="card-body">
+          <ul class="list-inline mb-2">
+            <li class="list-inline-item"><i class="ti-calendar mr-1 text-color"></i>{{ course.course_date|date:"F d, Y" }}</li>
+            <li class="list-inline-item"><a class="text-color" href="#">{{ course.category }}</a></li>
+          </ul>
+          <a href="{{ course.get_absolute_url }}">
+            <h4 class="card-title">{{ course.title }}</h4>
+          </a>
+          <p class="card-text mb-4">{{ course.short_content }}</p>
+          <a href="{{ course.get_absolute_url }}" class="btn btn-primary btn-sm">Apply now</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
   </div>
-</form>
-</div>
-</div>
+  {% endif %}
+  </div>
 </section>
 <!-- /research -->
 
