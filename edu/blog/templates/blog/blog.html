@@ -5,18 +5,20 @@
 {% block page_title %}<a class="h2 text-primary font-secondary" href="{% url 'ecenter-blog' %}">{{ header.blog_heading_title }}</a>{% endblock page_title %}
 {% block page_title_details %}<li class="list-inline-item text-white h3 font-secondary nasted">{{ header.blog_heading_message }}</li>{% endblock page_title_details %}
 
-{% block more_data %}Categories:&nbsp;&nbsp;
-  {% for cat in category_count %}
-        <a class="text-primary" href="{% url 'post-category' cat.categories__title %}">{{ cat.categories__title }}</a>&nbsp;(&nbsp;{{ cat.categories__title__count }}&nbsp;)&nbsp;&nbsp;&nbsp;&nbsp;
-  {% endfor %}
-{% endblock more_data %}
-
 {% block content %}
 
 <!-- blogs -->
 <section class="section">
   <div class="container">
     <div class="row">
+        <div class="col-12">
+          <!-- category list -->
+          <ul class="list-inline text-center filter-controls mb-5">
+            {% for cat in category_count %}
+              <li class="list-inline-item m-3 text-uppercase" data-filter="{{ cat.categories__title }}"><a class="text-primary" href="{% url 'post-category' cat.categories__title %}">{{ cat.categories__title }}</a>&nbsp;(&nbsp;{{ cat.categories__title__count }}&nbsp;)&nbsp;&nbsp;&nbsp;&nbsp;</li>
+            {% endfor %}
+          </ul>
+        </div>
       <!-- blog post -->
       {% for post in posts %}
       <article class="col-lg-4 col-sm-6 mb-5">
