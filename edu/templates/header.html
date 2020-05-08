@@ -72,7 +72,7 @@
 
         <div class="collapse navbar-collapse" id="navigation">
           <ul class="navbar-nav ml-auto text-center">
-            <li {% if about.about_heading_title %} class="nav-item active" {% else %} class="nav-item @@home" {% endif %}>
+            <li {% if stories.title %} class="nav-item active" {% else %} class="nav-item @@home" {% endif %}>
               <a class="nav-link" href="{% url 'ecenter-home' %}">Home</a>
             </li>
             <li {% if about.about_heading_title %} class="nav-item active" {% else %} class="nav-item @@about" {% endif %}>
