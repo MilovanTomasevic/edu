@@ -13,6 +13,9 @@ from django.views.generic import (
     UpdateView,
     DeleteView,
 )
+from django.core.paginator import Paginator
+from django.core.paginator import EmptyPage
+from django.core.paginator import PageNotAnInteger
 
 def blog_home(request):
     context = {
@@ -34,13 +37,24 @@ class PostListView(ListView):
     template_name = 'blog/blog.html'  # <app>/<model>_<viewtype>.html
     context_object_name = 'posts'
     ordering = ['-date_posted']
-#     paginate_by = 5
-
+    paginate_by = 9
+    
     def get_context_data(self, **kwargs):
         context = super(PostListView, self).get_context_data(**kwargs)
+        posts = Post.objects.order_by('-date_posted')
         category_count = get_category_count()
+        paginator = Paginator(posts, self.paginate_by)         
+        page = self.request.GET.get('page')
+
+        try:
+            posts = paginator.page(page)
+        except PageNotAnInteger:
+            posts = paginator.page(1)
+        except EmptyPage:
+            posts = paginator.page(paginator.num_pages)
+        
         context.update({
-            'posts': Post.objects.order_by('-date_posted'),
+            'posts': posts,
             'header': HeaderBlog.objects.last(),
             'category_count' : category_count
         })

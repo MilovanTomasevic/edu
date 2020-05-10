@@ -3,18 +3,32 @@ from .models import Course, HeaderCourses, Lesson
 from django.views.generic import  DetailView, ListView, View
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator
+from django.core.paginator import EmptyPage
+from django.core.paginator import PageNotAnInteger
 
 class CoursesListView(ListView):
     model = Course
     template_name = 'courses/courses.html'  # <app>/<model>_<viewtype>.html
     context_object_name = 'courses'
     ordering = ['course_date'] # - obrnuto
-#     paginate_by = 5
+    paginate_by = 9
 
     def get_context_data(self, **kwargs):
         context = super(CoursesListView, self).get_context_data(**kwargs)
+        courses = Course.objects.order_by('course_date')
+        paginator = Paginator(courses, self.paginate_by)         
+        page = self.request.GET.get('page')
+
+        try:
+            courses = paginator.page(page)
+        except PageNotAnInteger:
+            courses = paginator.page(1)
+        except EmptyPage:
+            courses = paginator.page(paginator.num_pages)
+        
         context.update({
-            'courses': Course.objects.order_by('course_date'),
+            'courses': courses,
             'header': HeaderCourses.objects.last(),
         })
         return context
