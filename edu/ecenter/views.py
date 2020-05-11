@@ -9,7 +9,7 @@ from django.contrib import messages
 from django.http import HttpResponse , HttpResponseRedirect
 
 def home(request):
-    try:
+    # try:
         slider = Slider.objects.last()
         baner = Baner.objects.last()
         about = About.objects.last()
@@ -33,9 +33,9 @@ def home(request):
             'profiles' : profiles
         }
         return render(request, template, context)
-    except:
-        messages.add_message(request, messages.INFO, 'It is necessary to insert data from the admin page')
-        return HttpResponseRedirect('/admin')
+    # except:
+        # messages.add_message(request, messages.INFO, 'It is necessary to insert data from the admin page')
+        # return HttpResponseRedirect('/admin')
 
 def teacher(request):
     return render(request, 'teacher.html')
