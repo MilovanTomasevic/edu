@@ -1,4 +1,5 @@
 {% load static %}
+{% load cart_template_tags %}
 
 <!-- preloader start -->
 <div class="preloader">
@@ -42,18 +43,19 @@
                   aria-haspopup="true" aria-expanded="false"><img src=" {{request.user.userprofile.image.url}}" height="30" width="30"></i>
                 </a>
                 <div class="dropdown-menu">
-                  <a class="dropdown-item" class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="{% url 'ecenter-profile' %}"></i>{{request.user.userprofile.name}} Profile</a>
-                  <a class="dropdown-item" class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="{% url 'account_email' %}">Change E-mail</a>
-                  <a class="dropdown-item" class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="{% url 'post-create' %}">New Post</a>
-                  
+                  <a class="dropdown-item" href="{% url 'ecenter-profile' %}"></i>{{request.user.userprofile.name}} Profile</a>
+                  <a class="dropdown-item" href="{% url 'account_email' %}">Change E-mail</a>
+                  <a class="dropdown-item" href="{% url 'post-create' %}">New Post</a>
+                  <a class="dropdown-item" href="{% url 'request-refund' %}">Request Refund</a>
+                  <a class="dropdown-item" href="{% url 'account_logout' %}">Sign Out</a>
                 </div>
             </li>
-            <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="{% url 'account_logout' %}">Sign Out</a></li>
+            {% comment %} <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="{% url 'account_logout' %}">Sign Out</a></li> {% endcomment %}
             {% else %}
             <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="{% url 'account_login' %}">Sign in</a></li>
-            <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="{% url 'account_signup' %}">Sign up</a></li>
+            {% comment %} <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="{% url 'account_signup' %}">Sign up</a></li> {% endcomment %}
             {% endif %}
-            <li class="list-inline-item"><a class="text-color" href="#"><i class="ti-shopping-cart mr-2"></i></a></li>
+            <li class="list-inline-item"><a class="text-color" href="{% url 'order-summary' %}"><sup style="color:red;">{{ request.user|cart_item_count }} </sup><i class="ti-shopping-cart mr-2"></i></a></li>
             <li class="list-inline-item"><a class="text-color" href="#"><i class="ti-search mr-2"></i></a></li>
           </ul>
         </div>
