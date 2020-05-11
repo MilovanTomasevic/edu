@@ -1,8 +1,22 @@
-# Django Educenter
+# Django EduCenter
 
-- [Educenter](http://demo.themefisher.com/educenter/) is an educational website template with affluent, contemporary, modern and trendy features for your majestic presence in web with a simple user interface. It’s a multipage website template consists the must-have features like home, about, courses, events, blogs and contacts that will add enormous value in your website and take it to a new height.
+- [EduCenter](http://demo.themefisher.com/educenter/) is an educational website template with affluent, contemporary, modern and trendy features for your majestic presence in web with a simple user interface. It’s a multipage website template consists the must-have features like home, about, courses, events, blogs and contacts that will add enormous value in your website and take it to a new height.
 
-- However, you can use Educenter as an online teaching platform, school and university websites without any complication as the appearance of the website is very user-friendly.
+- However, you can use EduCenter as an online teaching platform, school and university websites without any complication as the appearance of the website is very user-friendly.
+
+- EduCenter have store, so let's summarize each one:
+
+1. USER - Built in Django user model,  insrtance created for each customer who registers.
+
+2. CUSTOMER (UserProfile) - Along with a User model, each customer will contain a Customer model that holds a one to one relationship to each user. (OneToOneFied)
+
+3. PRODUCT (Course) - The product model represents products we have in store.
+
+4. ORDER - The order model will represent a transaction that is placed or pending. The model will hold information such as the transaction ID, data completed and order status. This model will be a child or the customer model but a parent to Order Items.
+
+5. ORDERITEM - An order Item is one item with an order. For example, a shopping cart may consist of many items but is all part of one order. Therfore the OrderItem model will be a child of the PRODUCT model AND the ORDER Model.
+
+6. SHIPPING - Not every order will need shipping information. For orders containing physical products that need to be shipping we will need to create an instance of the shipping model to know where to send the order. Shipping will simply be a child of the order model when necessary.
 
 --
 
