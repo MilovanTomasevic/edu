@@ -15,19 +15,27 @@ class Course(models.Model):
     image = models.ImageField(default='courses/default.jpg', upload_to='courses')
     course_date = models.DateField()
     duration = models.PositiveIntegerField(default=30, validators=[MinValueValidator(1), MaxValueValidator(1000)])
-    price = models.DecimalField(default=99.99, max_digits=6, decimal_places=2)
+    price = models.FloatField(default=130)
     about_title = models.CharField(max_length=100)
     content = HTMLField('Content')
     requirements = models.ManyToManyField('Requirements')
     apply = models.ManyToManyField('Apply')
     fees_and_funding = models.ManyToManyField('FeesAndFunding')
     teacher = models.ManyToManyField('users.UserProfile')
+    quantity = models.IntegerField(default=1)
+    discount_price = models.FloatField(blank=True, null=True)
 
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
         return reverse('course-detail', kwargs={'slug': self.slug})
+
+    def get_add_to_cart_url(self):
+        return reverse("add-to-cart", kwargs={'slug': self.slug})
+
+    def get_remove_from_cart_url(self):
+        return reverse("remove-from-cart", kwargs={'slug': self.slug})
     
     def save(self, *args, **kwargs):
         self.slug = str(self.course_date)+ "-" + slugify(self.title)
