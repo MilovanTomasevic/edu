@@ -63,6 +63,8 @@
   {% endif %}
 
   {% block content %}{% endblock %}
+  
+  {% include "pagination.html" %}
 
   {% block extra_body %}
   {% endblock %}
@@ -74,6 +76,10 @@
   <!-- scripts content -->
   {% include "scripts.html" %}
   <!-- /scripts -->
+
+
+  {% block extra_scripts %}
+  {% endblock extra_scripts %}
 
   </body>
 </html>
