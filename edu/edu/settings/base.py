@@ -32,6 +32,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'tinymce',
 
+    'django_countries',
+
     'blog',
     'users',
     'about',
@@ -41,6 +43,7 @@ INSTALLED_APPS = [
     'scholarship',
     'notice',
     'events',
+    'store',
 
 ]
 
@@ -70,6 +73,7 @@ TEMPLATES = [
             ],
             'libraries':{
             'listutil': 'courses.templatestags.listutil',
+            'cart_template_tags': 'store.templatestags.cart_template_tags',
 
             }
         },
@@ -153,6 +157,14 @@ TINYMCE_DEFAULT_CONFIG = {
     'statusbar': True,
 }
 
+if DEBUG:
+    STRIPE_PUBLIC_KEY = 'pk_test_17MxhZ6ph0JQOYn43OWkVeIT00sCHLavop'
+    STRIPE_SECRET_KEY = 'sk_test_TjPd88LWWSpt3uP9J1e1a4SX00SjU8vFUo'
+
+else:
+    # live keys
+    STRIPE_PUBLIC_KEY = ''
+    STRIPE_SECRET_KEY = ''
 
 # Auth
 
