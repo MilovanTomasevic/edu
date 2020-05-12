@@ -5,9 +5,7 @@
 {% load i18n %}
 
 {% block head_title %}{% trans "E-mail Addresses" %}{% endblock %}
-
-{% block page_title %}{% trans "E-mail Addresses" %}{% endblock page_title%}
-
+{% block page_title %}<a class="h2 text-primary font-secondary">{% trans "E-mail Addresses" %}</a>{% endblock page_title %}
 
 
 {% block content %}
@@ -20,9 +18,8 @@
 
           {% if user.emailaddress_set.all %}
           <p>
-            {% block page_title_details %}{% trans 'The following e-mail addresses are associated with your account:' %}{% endblock page_title_details%}
+              {% block page_title_details %}<li class="list-inline-item text-white h3 font-secondary nasted">{% trans 'The following e-mail addresses are associated with your account:' %}</li>{% endblock page_title_details %}
           </p>
-
           <form action="{% url 'account_email' %}" class="email_list" method="post">
             {% csrf_token %}
             <fieldset class="blockLabels">
