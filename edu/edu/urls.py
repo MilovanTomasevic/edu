@@ -18,6 +18,7 @@ urlpatterns = [
     path('notice/', include('notice.urls')),
     path('events/', include('events.urls')),
     path('store/', include('store.urls')),
+    path('analysis/', include('analysis.urls')),
 ]
 
 if settings.DEBUG:
