@@ -2,8 +2,9 @@
 
 {% load static %}
 
-{% block page_title %}Our teacher{% endblock page_title%}
-{% block page_title_details %}Our courses offer a good compromise between the continuous assessment favoured by some universities and the emphasis placed on final exams by others.{% endblock page_title_details%}
+{% block page_title %}<a class="h2 text-primary font-secondary" href="{% url 'ecenter-about' %}">Our teacher</a>{% endblock page_title %}
+{% block page_title_details %}<li class="list-inline-item text-white h3 font-secondary nasted">List teachers</li>{% endblock page_title_details %}
+
 
 {% block content %}
 <!-- teachers -->

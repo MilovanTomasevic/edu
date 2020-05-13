@@ -12,7 +12,7 @@
 <!-- events -->
 <section class="section">
   <div class="container">
-    <div class="row">
+    <div class="row justify-content-center">
       <!-- event -->
       {% for event in events %}{% now "Y-m-d" as todays_date %}
       {% if todays_date < event.event_date|date:"Y-m-d" %}

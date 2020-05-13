@@ -98,14 +98,10 @@
                 Pages
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{% url 'ecenter-teacher' %}">Teacher</a>
-                <a class="dropdown-item" href="{% url 'ecenter-teacher-single' %}">Teacher Single</a>
+                <a class="dropdown-item" href="{% url 'ecenter-teacher' %}">Teachers</a>
                 <a class="dropdown-item" href="{% url 'ecenter-notice' %}">Notice</a>
-                {% comment %} <a class="dropdown-item" href="{% url 'ecenter-notice-single' %}">Notice Details</a> {% endcomment %}
                 <a class="dropdown-item" href="{% url 'ecenter-research' %}">Research</a>
                 <a class="dropdown-item" href="{% url 'ecenter-scholarship' %}">Scholarship</a>
-                {% comment %} <a class="dropdown-item" href="{% url 'ecenter-event-single' %}">Event Details</a> {% endcomment %}
-                <a class="dropdown-item" href="#">Blog Details</a>
               </div>
             </li>
             <li {% if contactdetails.contact_heading_message %} class="nav-item active" {% else %} class="nav-item @@contact" {% endif %}>
