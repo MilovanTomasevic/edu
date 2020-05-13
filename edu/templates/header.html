@@ -83,6 +83,9 @@
             <li {% if header.courses_heading_title %} class="nav-item active" {% else %} class="nav-item @@courses" {% endif %}>
               <a class="nav-link" href="{% url 'ecenter-courses' %}">COURSES</a>
             </li>
+            <li {% if header.courses_heading_title %} class="nav-item active" {% else %} class="nav-item @@courses" {% endif %}>
+              <a class="nav-link" href="{% url 'analysis' %}">API</a>
+            </li>
             <li {% if header.events_heading_message %} class="nav-item active" {% else %} class="nav-item @@events" {% endif %}>
               <a class="nav-link" href="{% url 'ecenter-events' %}">EVENTS</a>
             </li>

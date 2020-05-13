@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'tinymce',
 
     'django_countries',
+    'rest_framework',
 
     'blog',
     'users',
