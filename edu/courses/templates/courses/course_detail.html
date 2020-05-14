@@ -156,7 +156,8 @@
               <h4 class="card-title">{{ course.title }}</h4>
             </a>
             <p class="card-text mb-4">{{course.short_content}}</p>
-            <a href="{% url 'course-detail' course.id %}" class="btn btn-primary btn-sm">Apply now</a>
+            <a href="{{ course.get_add_to_cart_url }}" class="btn btn-primary btn-sm">Add to Cart</a>
+            <a href="{{ course.get_absolute_url }}" class="btn btn-secondary">View</a>
           </div>
         </div>
       </div>
