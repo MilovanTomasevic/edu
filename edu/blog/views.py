@@ -1,6 +1,6 @@
 from django.db.models import Count
 from .models import Post, HeaderBlog, Category, PostView
-from .forms import PostForm
+from .forms import PostForm, CommentForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.conf import settings
@@ -91,12 +91,14 @@ class CategoryesPostListView(ListView):
 
 class PostDetailView(DetailView):
     model = Post
+    form = CommentForm()
 
     def get_context_data(self, **kwargs):
         context = super(PostDetailView, self).get_context_data(**kwargs)
         rposts = Post.objects.order_by('-date_posted')[:3]
         context.update({
             'rposts': rposts,
+            'form': self.form
         })
         return context
     
@@ -105,6 +107,17 @@ class PostDetailView(DetailView):
         if self.request.user.is_authenticated:
             PostView.objects.get_or_create(user=self.request.user, post=obj)
         return obj
+    
+    def post(self, request, *args, **kwargs):
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            post = self.get_object()
+            form.instance.user = request.user
+            form.instance.post = post
+            form.save()
+            return redirect(reverse("post-detail", kwargs={
+                'pk': post.pk
+            }))
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post

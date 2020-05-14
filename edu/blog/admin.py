@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Post, HeaderBlog, Category
+from .models import Post, HeaderBlog, Category, Comment
 
 class BlogAdmin(admin.ModelAdmin):
     list_display = ['author','title' , 'date_posted']
@@ -17,3 +17,4 @@ class HeaderAdmin(admin.ModelAdmin):
 admin.site.register(Post, BlogAdmin)
 admin.site.register(HeaderBlog, HeaderAdmin)
 admin.site.register(Category)
+admin.site.register(Comment)
