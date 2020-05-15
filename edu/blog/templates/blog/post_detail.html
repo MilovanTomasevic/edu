@@ -146,7 +146,24 @@ text-transform: capitalize;
   font-size: 12px;
 }
 
-.comment_reply {
+.comment_reply{
+display: inline-block;
+  border-radius: 51px;
+  border: 2px solid #7b7b7b36;
+  margin: 0;
+  height: 35px;
+  line-height: 35px;
+  min-width: 100px;
+  text-align: center;
+  color: #777777;
+-webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.comment_reply2  {
 display: inline-block;
   border-radius: 51px;
   border: 2px solid #7b7b7b36;
@@ -167,6 +184,13 @@ display: inline-block;
   border-color: #ffbc3b;
   color: #ffffff;
 }
+
+.comment_reply2:hover, .comment_reply2:focus {
+  background: #ffbc3b;
+  border-color: #ffbc3b;
+  color: #ffffff;
+}
+
 .blog_wrapper .blog_comment ul {
   list-style: none;
 }
@@ -393,7 +417,11 @@ width: 50px;
 													<span>{{ comment.timestamp|timesince }} ago</span>
 												</div>
 												<p>{{ comment.content }}</p>
-												<a id="replyID" class="comment_reply" href="#"><i class="fas fa-reply"></i>Replay</a>
+                        {% if request.user.is_authenticated %}
+												  <a id="replyID" class="comment_reply" target="{{ forloop.counter }}"><i class="fas fa-reply"></i> Reply </a>
+                        {% else %}
+                          <a id="replyID" class="comment_reply" href="{% url 'account_login' %}"><i class="fas fa-reply"></i>Login to Reply </a>
+                        {% endif %} 
 											</div>
 										</li>
                       {% for reply in comment.get_replies %}
@@ -412,11 +440,11 @@ width: 50px;
                       </li>
                       {% endfor %}
                         {% if request.user.is_authenticated %}
-                        <form method="POST" action="." id="formID"> 
+                        <form method="POST" action="." id="div{{ forloop.counter }}" class="targetDiv">
                             {% csrf_token %}
                             {{ form|crispy  }}
                             <input type='hidden' name='parent_id' value='{{ comment.id }}'>
-                            <input type='submit' value='Reply' class="comment_reply"><i class="fas fa-reply"></i>
+                            <input type='submit' value='Send reply' class="comment_reply2"><i class="fas fa-reply"></i>
                         </form>
                         {% endif %}
                     {% endfor %}
@@ -498,26 +526,15 @@ width: 50px;
 
 <script type="text/javascript">
 
-/*
-
 $(document).ready(function(){
-    
-    $("#formID").hide();
 
-    $("#replyID").click(function(event){
-        event.preventDefault();
-        $("#formID").fadeToggle();
-    })
-})
+    $(".targetDiv").hide();
 
     $(".comment_reply").click(function(event){
         event.preventDefault();
-        $(this).parent().next(".comment-reply").fadeToggle();
+        jQuery('#div' + $(this).attr('target')).fadeToggle();
     })
-
-
-*/
-
+})
 </script>
 
 {% endblock extra_scripts %}
