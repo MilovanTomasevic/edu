@@ -1,5 +1,5 @@
 from django.db.models import Count
-from .models import Post, HeaderBlog, Category, PostView
+from .models import Post, HeaderBlog, Category, PostView, Comment
 from .forms import PostForm, CommentForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404, redirect, reverse
@@ -107,17 +107,35 @@ class PostDetailView(DetailView):
         if self.request.user.is_authenticated:
             PostView.objects.get_or_create(user=self.request.user, post=obj)
         return obj
-    
+
     def post(self, request, *args, **kwargs):
         form = CommentForm(request.POST)
         if form.is_valid():
             post = self.get_object()
             form.instance.user = request.user
             form.instance.post = post
-            form.save()
-            return redirect(reverse("post-detail", kwargs={
-                'pk': post.pk
-            }))
+            content = form.cleaned_data.get("content")
+            parent_obj = None
+            # get parent comment id from hidden input
+            try:
+                # id integer e.g. 15
+                parent_id = int(request.POST.get('parent_id'))
+            except:
+                parent_id = None
+            # if parent_id has been submitted get parent_obj id
+            if parent_id:
+                parent_qs = Comment.objects.filter(id=parent_id)
+                # if parent object exist
+                if parent_qs.exists() and parent_qs.count() == 1:
+                    parent_obj = parent_qs.first()
+            new_comment = Comment.objects.get_or_create(
+							user = request.user,
+							content= content,
+							post = post,
+							parent = parent_obj,
+						)
+
+            return redirect(reverse("post-detail", kwargs={'pk': post.pk}))
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post

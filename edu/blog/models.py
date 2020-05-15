@@ -44,7 +44,7 @@ class Post(models.Model):
     
     @property
     def get_comments(self):
-        return self.comments.all().order_by('-timestamp')
+        return self.comments.all().filter(parent=None)
 
     @property
     def comment_count(self):
@@ -56,9 +56,17 @@ class Comment(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
     post = models.ForeignKey('Post', related_name='comments', on_delete=models.CASCADE)
+    parent = models.ForeignKey('self', null=True, related_name='replies', on_delete=models.DO_NOTHING)
 
+    class Meta:
+        ordering = ('-timestamp',)
+    
     def __str__(self):
-        return self.user.username
+        return 'Comment by {} for {}'.format(self.user.username, self.post.title)
+
+    def get_replies(self):
+        return Comment.objects.filter(parent=self)
+    
 
 class HeaderBlog(models.Model):
     blog_heading_title = models.CharField(max_length=50)

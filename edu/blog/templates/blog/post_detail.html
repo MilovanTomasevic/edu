@@ -1,6 +1,337 @@
 {% extends "base.html" %}
 
 {% load static %}
+{% load crispy_forms_tags %}
+
+{% block extra_head %}
+<style>
+
+/*================== 17 Start start single blog page css ==================  */
+.blog_wrapper .blog_data {
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+}
+.blog_data .blog_content {
+  padding:30px 30px 20px 30px;
+}
+.blog_postinfo ul {
+  list-style-type: none;
+}
+.blog_postinfo ul li {
+  padding-right: 20px;
+  display: inline-block;
+  position: relative;
+}
+.blog_postinfo ul li:after {
+  content: "";
+  position: absolute;
+  right: 10px;
+  top: 0;
+  bottom: 0;
+  background: #ddd;
+  width: 1px;
+  height: 15px;
+}
+.blog_postinfo ul li a, .blog_shareinfo .blog_tag a {
+color: #222222;
+  text-transform: capitalize;
+-webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+.blog_postinfo ul li a:hover, .blog_shareinfo .blog_tag a:hover {
+  color: #ffbc3b;	
+}
+.blog_postinfo ul li a i, .blog_shareinfo .blog_tag a i {
+  padding-right: 5px;
+  color: #ffbc3b;
+}
+
+.blog_postinfo ul li:last-child::after {
+  display: none;
+}
+.blog_content blockquote {
+  background: #f7faff;
+  padding:30px 15px 30px 60px;
+  font-size: 18px;
+  position: relative;
+  color: #ffbc3b;
+  margin: 15px 0;
+}
+.blog_content blockquote .blockquote_icon {
+  position: absolute;
+  left: 15px;
+  top: 35px;
+  background: rgb(0, 200, 218);
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  color: #fff;
+  z-index: 2;
+}
+.blog_shareinfo .social_list {
+  list-style: none;
+}
+.blog_content .blog_shareinfo {
+  display: flex;
+  border-top: 1px solid #ddd;
+  margin-top: 20px;
+  padding-top: 20px;
+  align-items: center;
+}
+.blog_shareinfo .blog_tag {
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+.blog_shareinfo .blog_social {
+  flex: 0 0 50%;
+  max-width: 50%;
+  text-align: right;
+}
+.blog_shareinfo .blog_social .social_list li {
+display: inline-block;
+  margin-right: 10px;
+}
+.blog_shareinfo .siderbar_icon{
+display:block;	
+  font-size: 20px;
+}
+.blog_wrapper .blog_comment {
+  margin-top: 30px;
+}
+.latest_comment .comment_thumb {
+  width: 100px;
+  display: inline-block;
+  margin-right: 10px;
+}
+.latest_comment .comment_data {
+  width: calc(100% - 115px);
+  display: inline-block;
+  vertical-align: top;
+}
+.blog_comment .latest_comment {
+  margin-top: 20px;
+  position: relative;
+  padding-bottom: 20px;
+}
+.blog_comment ul li {
+  border-bottom: 1px solid #eeeeee;
+}
+.blog_comment ul li:last-child {
+  border: none;
+  padding-bottom: 0;
+}
+.comment_data .client_name h5 {
+  font-size: 18px;
+  color: #556d91;
+text-transform: capitalize;
+}
+.comment_data .client_name span {
+  letter-spacing: 2px;
+  color: #ffbc3b;
+  margin: 5px 0;
+  display: block;
+text-transform: capitalize;
+}
+.comment_data .comment_reply {
+  position: absolute;
+  top: 0;
+  right: 0;
+text-transform: capitalize;
+}
+.comment_data .comment_reply i {
+  font-size: 12px;
+}
+
+.comment_reply {
+display: inline-block;
+  border-radius: 51px;
+  border: 2px solid #7b7b7b36;
+  margin: 0;
+  height: 35px;
+  line-height: 35px;
+  min-width: 100px;
+  text-align: center;
+  color: #777777;
+-webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+.comment_reply:hover, .comment_reply:focus {
+  background: #ffbc3b;
+  border-color: #ffbc3b;
+  color: #ffffff;
+}
+.blog_wrapper .blog_comment ul {
+  list-style: none;
+}
+.blog_comment .latest_comment.sub_replay {
+  margin-left: 40px;
+}
+.blog_wrapper .widget.blog_reply {
+  margin-bottom: 0;
+}
+.blog_reply .port_contact_form {
+  margin-top: 18px;
+}
+.port_singleblog_wrapper .widget{
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  margin-bottom: 30px;
+  background: #ffffff;
+}
+.blogsidebar_wrapper .widget .form-control {
+  background: #ff000000;
+  border: none;
+  border-bottom: 1px solid #c7cdd3;
+  border-radius: 0;
+  padding: 0;
+  margin-bottom: 0px;
+  padding: 0 20px 20px 0;
+}
+.blogsidebar_wrapper .widget.search_widget form {
+  position: relative;
+}
+.blogsidebar_wrapper .widget.search_widget .blog_searchicon {
+  position: absolute;
+  right: 0;
+  top: 0;
+  color: #ffbc3b;
+}
+.blogsidebar_wrapper .widget .form-control:focus {
+  box-shadow: none;
+}
+.blogsidebar_wrapper .widget ul {
+  list-style-type: none;
+}
+.widget .widget_rp .rp_thumb {
+  width: 80px;
+  display: inline-block;
+  margin-right: 8px;
+}
+.widget .widget_rp .rp_data {
+  width: calc(100% - 100px);
+  display: inline-block;
+  vertical-align: top;
+}
+.widget .widget_rp .rp_heading {
+color: #222222;
+  font-size: 16px;
+  margin-bottom: 5px;
+  display: block;
+ -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+.widget .widget_rp .rp_heading:hover {
+  color: #ffbc3b;
+}
+.widget .widget_rp .rp_date {
+  color: #ffbc3b;
+  text-transform: capitalize;
+}
+.widget.repost_widget .widget_rp ul li {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+.widget.repost_widget .widget_rp ul li:last-child {
+  border-bottom: none;
+margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+.widget .widget_title {
+  position: relative;
+  margin-bottom: 30px;
+  padding-bottom: 10px;
+  text-transform: capitalize;
+}
+.widget .widget_title:after, .widget .widget_title:before {
+  content: "";
+  position: absolute;
+  height: 2px;
+  bottom: 0;
+ -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+.widget .widget_title:after{
+  background: #eee;
+  width: 50px;
+  left: 0;
+}
+.widget .widget_title:before{
+  background: #ffbc3b;
+width:0px;
+  left: 50px;	
+z-index:2;
+}
+.widget:hover .widget_title::before{
+width: 50px;
+  left: 0;
+  -webkit-transition: width 0.3s ease;
+   -moz-transition: width 0.3s ease;
+  -ms-transition: width 0.3s ease;
+  -o-transition: width 0.3s ease;
+  transition: width 0.3s ease;
+}
+.widget.categroies_widget ul li {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+.widget.categroies_widget ul li:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+.widget.categroies_widget ul li a {
+  color: #777777;
+ -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+.widget.categroies_widget ul li a .category_num {
+  float: right;
+}
+.widget.categroies_widget ul li a:hover {
+  color: #ffbc3b;
+}
+.widget.tag_widget ul li {
+  display: inline-block;
+  margin-right: 0px;
+  margin-bottom: 10px;
+}
+.widget.tag_widget .comment_reply {
+  min-width: auto;
+  padding: 0px 10px;
+}
+.widget.insta_widget ul li {
+  display: inline-block;
+}
+.widget.insta_widget ul li a {
+  width: 93px;
+  display: block;
+  padding: 5px;
+}
+.port_singleblog_wrapper {
+  background: #f9f9f9;
+}
+/*================== 17 End start single blog page css ==================  */
+
+</style>
+{% endblock extra_head %}
 
 {% block page_title %}<a class="h2 text-primary font-secondary" href="{% url 'ecenter-blog' %}">Blog</a>{% endblock page_title %}
 {% block page_title_details %}<li class="list-inline-item text-white h3 font-secondary nasted">{{ object.title }}</li>{% endblock page_title_details %}
@@ -33,52 +364,97 @@
       <div class="col-12 mb-5">
         <h2>{{ object.title }}</h2>
         <p>{{ object.content | safe }}</p>
-      </div>
-      <!-- comment box -->
-      <div class="col-12">
-        <h5 class="mb-3">Post Comments ({{ post.comments.count }})</h5>
-        <hr>
-        {% for comment in post.get_comments %}
-        <div class="d-flex justify-content-between align-items-center flex-wrap">
-          <div class="media mb-2 mb-sm-0">
-            <img class="mr-4 img-fluid" src="{{ comment.user.userprofile.image.url }}" height="72" width="72" alt="Teacher">
-            <div class="media-body">
-              <a href="{% url 'profile-detail' comment.user.id %}"><h4 class="mt-0">{% if comment.user.userprofile.name == '' %}{{ comment.user.username }}{% else %}{{ comment.user.userprofile.name }}{% endif %}</h4></a>
-              {{ comment.timestamp|timesince }} ago
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12">
-              <p>{{ comment.content }}</p>
-            </div>
-        </div>
-        </br>
-        <div class="border-bottom border-primary mt-4"></div>
-      </div><br>
-      {% endfor %}
-      <hr>
-      {% if request.user.is_authenticated %}
-      <div class="col-12">
-        <br><br><br><h5 class="mb-4">Leave a reply</h5>
-          <form method="POST" action="." class="commenting-form">
-            {% csrf_token %}
-            <div class="row">
-              <div class="form-group col-md-12">
-                {{ form }}
-              </div>
-              <div class="form-group col-md-12">
-                <button type="submit" value="send" class="btn btn-primary">post comment</button>
-              </div>
-            </div>
-          </form>
-      </div>
-      {% else %}
-        <a href="{% url 'account_login' %}" class="btn btn-primary-outline">Login to comment</a>
-      {% endif %}
-    </div>
+      </div>   
   </div>
 </section>
 <!-- /post details -->
+
+    
+  <!-- ================== start comment box ================== -->
+		<div class="port_sec_warapper"> 
+			<div class="port_singleblog_wrapper prt_toppadder80 prt_bottompadder80 ">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="blog_wrapper">
+								<div class="widget blog_comment">
+									<div class="singlepost_title">
+										<h4 class="widget_title">Comments ({{ post.comments.count }})</h4>
+									</div>
+									<ul>
+                    {% for comment in post.get_comments %}
+										<li class="latest_comment">
+											<div class="comment_thumb">
+												<img src="{{ comment.user.userprofile.image.url }}" alt="image" class="img-fluid"/>
+											</div>
+											<div class="comment_data">
+												<div class="client_name">
+													<a href="{% url 'profile-detail' comment.user.id %}"><h5>{% if comment.user.userprofile.name == '' %}{{ comment.user.username }}{% else %}{{ comment.user.userprofile.name }}{% endif %}</h5></a>
+													<span>{{ comment.timestamp|timesince }} ago</span>
+												</div>
+												<p>{{ comment.content }}</p>
+												<a id="replyID" class="comment_reply" href="#"><i class="fas fa-reply"></i>Replay</a>
+											</div>
+										</li>
+                      {% for reply in comment.get_replies %}
+                      <li class="latest_comment sub_replay">
+                        <div class="comment_thumb">
+                          <img src="{{ reply.user.userprofile.image.url }}" alt="image" class="img-fluid"/>
+                        </div>
+                        <div class="comment_data">
+                          <div class="client_name">
+                            <a href="{% url 'profile-detail' reply.user.id %}"><h5>{% if reply.user.userprofile.name == '' %}{{ reply.user.username }}{% else %}{{ reply.user.userprofile.name }}{% endif %}</h5></a>
+                            <span>{{ reply.timestamp|timesince }} ago</span>
+                          </div>
+                          <p>{{ reply.content }}</p>
+                          {% comment %} <a href="javascript:;" class="comment_reply"><i class="fas fa-reply"></i> reply</a> {% endcomment %}
+                        </div>
+                      </li>
+                      {% endfor %}
+                        {% if request.user.is_authenticated %}
+                        <form method="POST" action="." id="formID"> 
+                            {% csrf_token %}
+                            {{ form|crispy  }}
+                            <input type='hidden' name='parent_id' value='{{ comment.id }}'>
+                            <input type='submit' value='Reply' class="comment_reply"><i class="fas fa-reply"></i>
+                        </form>
+                        {% endif %}
+                    {% endfor %}
+									</ul>
+								</div>
+								<div class="widget blog_reply">
+									<div class="singlepost_title">
+										<h4 class="widget_title">post a comment</h4>
+									</div>
+									<div class="row">
+										<div class="col-12">
+											<div class="port_contact_form">
+                        {% if request.user.is_authenticated %}
+												<form method="POST" action="." class="commenting-form">
+                          {% csrf_token %}
+                          <div class="row">
+                            <div class="form-group col-md-12">
+                              {{ form | crispy }}
+                            </div>
+                            <div class="form-group col-md-12">
+                              <button type="submit" value="send" class="btn btn-primary">post comment</button>
+                            </div>
+                          </div>
+                        </form>
+                        {% else %}
+                          <a href="{% url 'account_login' %}" class="btn btn-primary-outline">Login to comment</a>
+                        {% endif %}
+											</div>	
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>	
+				</div>
+			</div>	
+		</div> 
+    <!-- ================== end comment box ================== -->
 
 <!-- recommended post -->
 <section class="section">
@@ -88,7 +464,7 @@
           <h2 class="section-title">Recommended</h2>
         </div>
       </div>
-      <div class="row justify-content-center">
+    <div class="row justify-content-center">
     <!-- blog post -->
     {% for post in rposts %}
     <article class="col-lg-4 col-sm-6 mb-5">
@@ -110,13 +486,38 @@
           </div>
         </div>
       </article>
-    {% endfor %}
-  </div>
-</div>
+      {% endfor %}
 </section>
-  </div>
-    </div>
-  </section>
   <!-- /recommended post -->
+		
 
 {% endblock content %}
+
+
+{% block extra_scripts %}
+
+<script type="text/javascript">
+
+/*
+
+$(document).ready(function(){
+    
+    $("#formID").hide();
+
+    $("#replyID").click(function(event){
+        event.preventDefault();
+        $("#formID").fadeToggle();
+    })
+})
+
+    $(".comment_reply").click(function(event){
+        event.preventDefault();
+        $(this).parent().next(".comment-reply").fadeToggle();
+    })
+
+
+*/
+
+</script>
+
+{% endblock extra_scripts %}
