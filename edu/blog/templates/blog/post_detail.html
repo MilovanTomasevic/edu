@@ -421,7 +421,6 @@ width: 50px;
 												  <a id="replyID" class="comment_reply" target="{{ forloop.counter }}"><i class="fas fa-reply"></i> Reply </a>
                         {% else %}
                           <a id="replyID" class="comment_reply" href="{% url 'account_login' %}"><i class="fas fa-reply"></i>Login to Reply </a>
-
                         {% endif %} 
 											</div>
 										</li>
@@ -446,7 +445,6 @@ width: 50px;
                             {{ form|crispy  }}
                             <input type='hidden' name='parent_id' value='{{ comment.id }}'>
                             <input type='submit' value='Send reply' class="comment_reply2"><i class="fas fa-reply"></i>
-
                         </form>
                         {% endif %}
                     {% endfor %}
