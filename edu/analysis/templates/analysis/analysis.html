@@ -2,10 +2,10 @@
 
 {% load static %}
 
-{% block page_title %}<a class="h2 text-primary font-secondary" href="{% url 'analysis' %}">Analysis</a>{% endblock page_title %}
-{% block page_title_details %}<li class="list-inline-item text-white h3 font-secondary nasted">Chart</li>{% endblock page_title_details %}
+{% block page_title %}<a class="h2 text-primary font-secondary" href="{% url 'analysis' %}">{{ header_api }}</a>{% endblock page_title %}
+{% block page_title_details %}<li class="list-inline-item text-white h3 font-secondary nasted">{{ message_api }}</li>{% endblock page_title_details %}
 
-{% block page_button %}<a href="{% url 'ecenter-api' %}" class="btn btn-sm btn-primary-outline">API</a>{% endblock page_button %}
+{% block page_button %}<div class="col text-center"><a href="{% url 'ecenter-api' %}" class="btn btn-sm btn-primary-outline">API</a></div>{% endblock page_button %}
 
 {% block content %}
 

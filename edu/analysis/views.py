@@ -1,4 +1,4 @@
-# from django.contrib.auth import get_user_model
+
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.generic import TemplateView
@@ -11,7 +11,12 @@ class ChartView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(ChartView, self).get_context_data(**kwargs)
-        context['courses'] = Course.objects.all()
+        courses = Course.objects.all()
+        context.update({
+            'courses': courses,
+            'header_api': 'Analysis',
+            'message_api': 'Chart',
+        })
         return context
 
 
