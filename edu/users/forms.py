@@ -63,7 +63,7 @@ class SignupForm(forms.ModelForm):
         interests = self.cleaned_data['interests']
         user.userprofile.interests.set(interests)
         user.userprofile.biography = self.cleaned_data['biography']
-        role = Role.objects.get(pk=1) #self.cleaned_data['role']#Role.objects.first().pk # Role.objects.all()[0] # role = Role.objects.first()
+        role = Role.objects.get(name='user') #self.cleaned_data['role']#Role.objects.first().pk # Role.objects.all()[0] # role = Role.objects.first()
         user.userprofile.role.add(role)
         user.userprofile.save()
 
