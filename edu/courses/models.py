@@ -38,7 +38,7 @@ class Course(models.Model):
         return reverse("remove-from-cart", kwargs={'slug': self.slug})
     
     def save(self, *args, **kwargs):
-        self.slug = str(self.course_date)+ "-" + slugify(self.title)
+        self.slug = str(self.course_date)+ "-" + slugify(self.title)+ "-" + slugify(self.pk)
         return super(Course, self).save(*args, **kwargs)
 
     @property
