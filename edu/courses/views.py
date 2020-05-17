@@ -18,6 +18,7 @@ class CoursesListView(ListView):
     def get_context_data(self, **kwargs):
         context = super(CoursesListView, self).get_context_data(**kwargs)
         courses = Course.objects.order_by('course_date')
+        category = Category.objects.all()
         paginator = Paginator(courses, self.paginate_by)         
         page = self.request.GET.get('page')
 
@@ -30,6 +31,7 @@ class CoursesListView(ListView):
         
         context.update({
             'courses': courses,
+            'category':category,
             'header': HeaderCourses.objects.last(),
         })
         return context
