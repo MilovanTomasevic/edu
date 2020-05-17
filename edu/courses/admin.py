@@ -8,7 +8,7 @@ from .models import Course, HeaderCourses, Category, Requirements, Apply, FeesAn
 
 class CourseForm(forms.ModelForm):
     try:
-        teacher  = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple, help_text="Choose Teacher(s)", queryset=UserProfile.objects.filter(role__in=[Role.objects.get(pk=2)]))    
+        teacher  = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple, help_text="Choose Teacher(s)", queryset=UserProfile.objects.filter(role__in=[Role.objects.get(name='teacher')]))    
     except:
         teacher = None
 class InLineLesson(admin.TabularInline):
