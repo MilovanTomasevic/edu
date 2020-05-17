@@ -69,6 +69,13 @@ $ ./manage.py createsuperuser
 $ python manage.py runserver
 ```
 
+## Generate data
+
+### courses
+```sh
+$ python manage.py create_courses_data titles
+```
+
 ## Advice
 
 ### GIT
