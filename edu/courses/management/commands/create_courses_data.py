@@ -67,7 +67,7 @@ abouts = [
 
 
 
-teachers = [teacher.name for teacher in UserProfile.objects.filter(role__in=[Role.objects.get(pk=2)])]
+teachers = [teacher.name for teacher in UserProfile.objects.filter(role__in=[Role.objects.get(name='teacher')])]
 
 
 def generate_category_name():
