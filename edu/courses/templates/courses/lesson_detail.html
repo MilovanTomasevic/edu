@@ -6,6 +6,9 @@
 {% block page_title %}<a class="h2 text-primary font-secondary" href="{{ object.course.get_absolute_url }}">{{ object.course.title }}</a>{% endblock page_title %}
 {% block page_title_details %}<li class="list-inline-item text-white h3 font-secondary nasted">{{ object.title }}</li>{% endblock page_title_details %}
 
+{% block page_button %}<div class="col text-center"><a href="{% url 'ecenter-course-filter' %}" class="btn btn-sm btn-primary-outline text-center">Search  <i class="ti-search mr-2"></i></a></div>{% endblock page_button %}
+
+
 {% block content %}
 <section class="section">
 	<div class='container'>
