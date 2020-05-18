@@ -71,6 +71,11 @@ $ python manage.py runserver
 
 ## Generate data
 
+### user and user profile
+```sh
+python manage.py create_users_data names
+```
+
 ### courses
 ```sh
 $ python manage.py create_courses_data titles
