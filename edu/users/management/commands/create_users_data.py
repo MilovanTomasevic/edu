@@ -97,29 +97,25 @@ class Command(BaseCommand):
                 user.is_superuser = False
                 user.is_staff = False
                 user.save()
-                
-                user_profile = UserProfile(
-                    user = user.username(gen_username),
-                    name = gen_name,
-                    description = 'Description',
-                    field = Field.objects.get(field_name=gen_field),
-                    category = Category.objects.get(category_name=gen_category),
-                    phone = 'phone',
-                    facebook = 'facebook',
-                    twitter = 'twitter',
-                    skype = 'skype',
-                    site = 'site',
-                    address = 'address',
-                    biography = 'biography'
-                )
 
-                user_profile.save()
+                user.userprofile.name = gen_name
+                user.userprofile.fields = Field.objects.get(field_name=gen_field)
+                user.userprofile.category = Category.objects.get(category_name=gen_category)
+                user.userprofile.description = 'description'
+                user.userprofile.phone = 'phone'
+                user.userprofile.facebook = 'facebook'
+                user.userprofile.twitter = 'twitter'
+                user.userprofile.skype = 'skype'
+                user.userprofile.site = 'site'
+                user.userprofile.address = 'address'
 
                 interests = Interests.objects.get_or_create(interest=gen_interest)
-                user_profile.interests.add(Interests.objects.get(interest=gen_interest))
+                user.userprofile.interests.add(Interests.objects.get(interest=gen_interest))
 
+                user.userprofile.biography = 'biography'
                 role = Role.objects.get_or_create(name=gen_role)
-                user_profile.role.add(Role.objects.get(name=gen_role))
 
-
+                user.userprofile.role.add(Role.objects.get(name=gen_role))
+                user.userprofile.save()
+                
         self.stdout.write(self.style.SUCCESS('Courses Data imported successfully'))
