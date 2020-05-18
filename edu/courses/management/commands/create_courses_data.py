@@ -107,7 +107,7 @@ def generate_about():
     return abouts[index]
 
 def generate_teacher_name():
-    index = random.randint(0, 2)
+    index = random.randint(0, 10)
     return teachers[index]
 
 def generate_discount_price():
