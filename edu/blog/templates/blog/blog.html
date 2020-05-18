@@ -15,7 +15,9 @@
           <!-- category list -->
           <ul class="list-inline text-center filter-controls mb-5">
             {% for cat in category_count %}
-              <li class="list-inline-item m-3 text-uppercase" data-filter="{{ cat.categories__title }}"><a class="text-primary" href="{% url 'post-category' cat.categories__title %}">{{ cat.categories__title }}</a>&nbsp;(&nbsp;{{ cat.categories__title__count }}&nbsp;)&nbsp;&nbsp;&nbsp;&nbsp;</li>
+              {% if cat.categories__title  or cat.categories__title__count != 0 %}
+                <li class="list-inline-item m-3 text-uppercase" data-filter="{{ cat.categories__title }}"><a class="text-primary" href="{% url 'post-category' cat.categories__title %}">{{ cat.categories__title }}</a>&nbsp;(&nbsp;{{ cat.categories__title__count }}&nbsp;)&nbsp;&nbsp;&nbsp;&nbsp;</li>
+              {% endif %}
             {% endfor %}
           </ul>
         </div>
