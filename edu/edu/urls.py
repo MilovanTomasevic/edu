@@ -19,6 +19,7 @@ urlpatterns = [
     path('events/', include('events.urls')),
     path('store/', include('store.urls')),
     path('analysis/', include('analysis.urls')),
+    path('corona/', include('corona.urls')),
 ]
 
 if settings.DEBUG:
