@@ -13,13 +13,13 @@
     <div class="container">
             <h4>Implementation of <b>chartJS</b> using <b>django</b></h4> 
           <hr/> 
-            <div class="col-md-6"> 
+            <div class="col-md-12"> 
               <canvas id="myChartline"></canvas> 
             </div></br>
-            <div class="col-md-6"> 
+            <div class="col-md-12"> 
               <canvas id="myChartBar"></canvas> 
             </div></br>
-            <div class="col-md-6"> 
+            <div class="col-md-12"> 
               <canvas id="myPolarArea"></canvas> 
             </div> 
     </div>
@@ -138,7 +138,7 @@
       var ctx = document.getElementById(id).getContext('2d'); 
 
         var myChart = new Chart(ctx, {
-        type: 'polarArea',
+        type: 'horizontalBar',
         data: {
           labels: labels, 
           datasets: [{ 
