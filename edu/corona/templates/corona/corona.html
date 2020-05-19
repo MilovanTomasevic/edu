@@ -1,0 +1,244 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+
+{% block extra_head %}
+<link rel="stylesheet" type="text/css" href="//github.com/downloads/lafeber/world-flags-sprite/flags32.css" />
+<style>
+
+</style>
+{% endblock extra_head %}
+
+{% block page_title %}<a class="h2 text-primary font-secondary" href="{% url 'ecenter-corona' %}">{{ corona_header }}</a>{% endblock page_title %}
+{% block page_title_details %}<li class="list-inline-item text-white h3 font-secondary nasted">World Map</li>{% endblock page_title_details %}
+
+{% block content %}
+
+<!-- corona -->
+ <section class="section">
+    <div class="row justify-content-center">
+        <div class="col-3" style="float: left;  max-height: 650px;max-width:400px;overflow: scroll; overflow-x:hidden;"> 
+            <h5>Total Infected: {{overallCount}}</h5>
+            <div class="col-12">
+                <form method="post" enctype="multipart/form-data" action="{% url 'ecenter-country' %}">
+                {% csrf_token %}
+                <div class="col-4" style="float: left;">
+                    {% for con in contryNames %}
+                    <table style="border-width: 2px; border: #333;">
+                    <tr>
+                        <input type="submit" value={{con}} name="countryName" style="width:100px;">
+                    </tr>
+                </table>
+                    {% endfor %}
+                </div>
+                <div class="col-8" style="float: left;">
+                    <canvas id="myChart" style="height: 6650px; width: 180px;"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-6" style="float: left;">
+            <br>
+            <br>
+            <div id="mapChart" style="height: 650px; width: 800px;"></div>
+        </div>
+        <div class="col-3" style="float: left;max-width: 300px;  max-height: 650px;overflow: scroll; overflow-x:hidden;">
+            <h5>Last 6 days Counts</h5>
+            <div class="col-12">
+                <div id="heatchart"></div>
+            </div>
+        </div>
+        <br>
+        <div class="col-8"> 
+            <canvas id="lineChart" style="height: 400px;"></canvas>
+        </div>
+    </div>
+</section> 
+<!-- /corona -->
+
+{% endblock content %}
+
+{% block extra_scripts %}
+
+<script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chartOptions = {
+        legend: {
+            display: false
+                },
+        scales: {
+            xAxes: [{
+                barPercentage:1
+                }],
+            yAxes: [
+                    // {barPercentage: 1},
+                    // {gridLines:{drawBorder: false}},
+                    {ticks: {display:false}},
+                    // {ticks: {mirror: true}},
+                    {display: false},
+                    
+                    ],
+        elements: {
+            rectangle: {
+            borderSkipped: 'left',
+            }
+        }
+        }
+    };
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'horizontalBar',
+
+        // The data for our dataset
+        data: {
+            labels: {{ contryNames|safe }},
+            datasets: [{
+                data: {{ countsVal|safe }},
+                label: 'Infected Counts',
+                barThickness:'flex',
+                backgroundColor:'#03a9fc',  
+                
+            }]
+        },
+        options: chartOptions
+});
+
+    var data2={{datasetForLine|safe}};
+    var chartOptions2 = {
+            legend: {
+                display: false
+                    }
+        };
+    var ctx2 = document.getElementById('lineChart').getContext('2d');  
+	var myLineChart = new Chart(ctx2, {
+    type: 'line',
+    data: {labels:{{axisvalues|safe}},
+            datasets:data2,},
+    options: chartOptions2
+});
+
+var someDataMap=[{'code3': 'AFG', 'name': 'Afghanistan', 'value': 484, 'code': 'AF'},
+ {'code3': 'ALB', 'name': 'Albania', 'value': 409, 'code': 'AL'},
+ {'code3': 'DZA', 'name': 'Algeria', 'value': 1666, 'code': 'DZ'},
+ {'code3': 'AND', 'name': 'Andorra', 'value': 583, 'code': 'AD'},
+ {'code3': 'AGO', 'name': 'Angola', 'value': 19, 'code': 'AO'}];
+
+ var someData2=[{
+		"code3": "ABW",
+		"name": "Aruba",
+		"value": 582.34,
+		"code": "AW"
+	},
+	{
+		"code3": "AFG",
+		"name": "Afghanistan",
+		"value": 53.08,
+		"code": "AF"
+	},
+	{
+		"code3": "AGO",
+		"name": "Angola",
+		"value": 23.11,
+		"code": "AO"
+    }];
+ var someData3={{dataForMapGraph|safe}};
+    Highcharts.getJSON('https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/world-population-density.json', function (data) {
+
+// Prevent logarithmic errors in color calulcation
+data.forEach(function (p) {
+    p.value = (p.value < 1 ? 1 : p.value);
+});
+
+// Initiate the chart
+Highcharts.mapChart('mapChart', {
+
+    chart: {
+        map: 'custom/world'
+    },
+
+    title: {
+        text: 'World Map COVID-19 Infection '
+    },
+
+    legend: {
+        title: {
+            text: 'Infected Population',
+            style: {
+                color: ( // theme
+                    Highcharts.defaultOptions &&
+                    Highcharts.defaultOptions.legend &&
+                    Highcharts.defaultOptions.legend.title &&
+                    Highcharts.defaultOptions.legend.title.style &&
+                    Highcharts.defaultOptions.legend.title.style.color
+                ) || 'black'
+            }
+        }
+    },
+
+    mapNavigation: {
+        enabled: true,
+        buttonOptions: {
+            verticalAlign: 'bottom'
+        }
+    },
+
+    tooltip: {
+        backgroundColor: 'none',
+        borderWidth: 0,
+        shadow: false,
+        useHTML: true,
+        padding: 0,
+        pointFormat: '<span class="f32"><span class="flag {point.properties.hc-key}">' +
+            '</span></span> {point.name}<br>' +'<span><h4>{point.value}</h4></span>',
+        positioner: function () {
+            return { x: 0, y: 250 };
+        }
+    },
+
+    colorAxis: {
+        min: 1,
+        max: {{maxVal|safe}},
+        type: 'logarithmic'
+    },
+
+    series: [{
+        data: someData3,
+        joinBy: ['iso-a3', 'code3'],
+        name: 'Infected Counts',
+        states: {
+            hover: {
+                color: '#ffcd6e'
+            }
+        }
+    }]
+});
+});
+
+
+var options = {
+          series: {{dataForheatMap|safe}},
+          chart: {
+          height: 6500,
+          type: 'heatmap',
+        },
+        dataLabels: {
+          enabled: true
+        },
+        dataLabels: {
+            position: 'top'
+            },
+        colors: ["#008FFB"],
+        yaxis: {
+      show: false},
+      xaxis: {
+          type: 'category',
+          categories: {{dateCat|safe}}
+        },
+        
+        };
+var chart4 = new ApexCharts(document.querySelector("#heatchart"), options);
+
+chart4.render();
+</script>
+
+{% endblock extra_scripts %}
