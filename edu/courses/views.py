@@ -60,7 +60,7 @@ def is_valid_queryparam(param):
 
 
 def FilterListView(request):
-    paginate_by = 9
+    # paginate_by = 9
     courses = Course.objects.all()
     category = Category.objects.all()
     title_contains_query = request.GET.get('title_contains')
@@ -98,22 +98,22 @@ def FilterListView(request):
     if is_valid_queryparam(selected_category) and selected_category != 'Choose...':
          courses = courses.filter(category__category_name=selected_category)
 
-    paginator = Paginator(courses, paginate_by)         
-    page = request.GET.get('page')
-    try:
-        courses = paginator.page(page)
-    except PageNotAnInteger:
-        courses = paginator.page(1)
-    except EmptyPage:
-        courses = paginator.page(paginator.num_pages)
+    # paginator = Paginator(courses, paginate_by)         
+    # page = request.GET.get('page')
+    # try:
+    #     courses = paginator.page(page)
+    # except PageNotAnInteger:
+    #     courses = paginator.page(1)
+    # except EmptyPage:
+    #     courses = paginator.page(paginator.num_pages)
 
     context = {
         'courses': courses,
         'category':category,
         'header': HeaderCourses.objects.last(),
         'header_search': 'Search results',
-        'paginator':paginator,
-        'myP': 1,
+        # 'paginator':paginator,
+        # 'myP': 1,
     }
     return render(request, "courses/filter.html", context)
 
