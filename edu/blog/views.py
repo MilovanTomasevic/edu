@@ -77,7 +77,7 @@ class UserPostListView(ListView):
 
 class CategoryesPostListView(ListView):
     model = Post
-    paginate_by = 9
+    # paginate_by = 9
 
     def get_context_data(self, **kwargs):
         context = super(CategoryesPostListView, self).get_context_data(**kwargs)
