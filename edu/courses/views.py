@@ -60,8 +60,8 @@ def is_valid_queryparam(param):
 
 
 def FilterListView(request):
-    # paginate_by = 9
-    courses = Course.objects.all()
+    paginate_by = 9
+    courses_list = Course.objects.all()
     category = Category.objects.all()
     title_contains_query = request.GET.get('title_contains')
     title_or_teacher = request.GET.get('title_or_teacher')
@@ -73,47 +73,46 @@ def FilterListView(request):
     selected_category= request.GET.get('category')
 
     if is_valid_queryparam(title_contains_query):
-        courses = courses.filter(title__icontains=title_contains_query)
+        courses_list = courses_list.filter(title__icontains=title_contains_query)
 
     elif is_valid_queryparam(title_or_teacher):
-        courses = courses.filter(Q(title__icontains=title_or_teacher)
+        courses_list = courses_list.filter(Q(title__icontains=title_or_teacher)
                     | Q(teacher__name__icontains=title_or_teacher)
                     ).distinct()
 
     if is_valid_queryparam(short_content):
-        courses = courses.filter(short_content__icontains=short_content)
+        courses_list = courses_list.filter(short_content__icontains=short_content)
 
     if is_valid_queryparam(min_price):
-        courses = courses.filter(price__gte=min_price)
+        courses_list = courses_list.filter(price__gte=min_price)
 
     if is_valid_queryparam(max_price):
-        courses = courses.filter(price__lte=max_price)
+        courses_list = courses_list.filter(price__lte=max_price)
 
     if is_valid_queryparam(date_min):
-        courses = courses.filter(course_date__gte=date_min)
+        courses_list = courses_list.filter(course_date__gte=date_min)
 
     if is_valid_queryparam(date_max):
-        courses = courses.filter(course_date__lt=date_max)
+        courses_list = courses_list.filter(course_date__lt=date_max)
 
     if is_valid_queryparam(selected_category) and selected_category != 'Choose...':
-         courses = courses.filter(category__category_name=selected_category)
+         courses_list = courses_list.filter(category__category_name=selected_category)
 
-    # paginator = Paginator(courses, paginate_by)         
-    # page = request.GET.get('page')
-    # try:
-    #     courses = paginator.page(page)
-    # except PageNotAnInteger:
-    #     courses = paginator.page(1)
-    # except EmptyPage:
-    #     courses = paginator.page(paginator.num_pages)
+    paginator = Paginator(courses_list, paginate_by)         
+    page_number = request.GET.get('page')
+    try:
+        courses = paginator.page(page_number)
+    except PageNotAnInteger:
+        courses = paginator.page(1)
+    except EmptyPage:
+        courses = paginator.page(paginator.num_pages)
 
     context = {
-        'courses': courses,
+        'page_obj': courses,
         'category':category,
         'header': HeaderCourses.objects.last(),
         'header_search': 'Search results',
-        # 'paginator':paginator,
-        # 'myP': 1,
+        'myP': 1,
     }
     return render(request, "courses/filter.html", context)
 

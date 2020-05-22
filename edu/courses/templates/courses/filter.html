@@ -2,8 +2,6 @@
 
 {% load static %}
 
-
-
 {% block page_title %}<a class="h2 text-primary font-secondary" href="{% url 'ecenter-courses' %}">Courses</a>{% endblock page_title %}
 {% block page_title_details %}<li class="list-inline-item text-white h3 font-secondary nasted">Search</li>{% endblock page_title_details %}
 
@@ -86,7 +84,7 @@
 
     <div class="row justify-content-center">
       <!-- Search results -->
-      {% for course in courses %}
+      {% for course in page_obj %}
       <div class="col-lg-4 col-sm-6 mb-5">
         <div class="card p-0 border-primary rounded-0 hover-shadow">
           <img class="card-img-top rounded-0" src="{{ course.image.url }}" alt="course thumb">
@@ -110,11 +108,5 @@
   </div>         
 </section>
 <!-- /Search results -->
+
 {% endblock content %}
-
-
-{% block extra_scripts %}
-
-
-{% endblock extra_scripts %}
-
