@@ -78,6 +78,7 @@ TEMPLATES = [
             'libraries':{
             'listutil': 'courses.templatestags.listutil',
             'cart_template_tags': 'store.templatestags.cart_template_tags',
+            'tag_paginator': 'courses.templatestags.tag_paginator',
 
             }
         },
