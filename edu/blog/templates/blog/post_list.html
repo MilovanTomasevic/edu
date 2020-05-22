@@ -22,7 +22,7 @@
             </ul>
           </div>
       <!-- blog post -->
-      {% for post in posts %}
+      {% for post in page_obj %}
       <article class="col-lg-4 col-sm-6 mb-5">
           <div class="card rounded-0 border-bottom border-primary border-top-0 border-left-0 border-right-0 hover-shadow">
             <img class="card-img-top rounded-0" src="{{post.image.url}}" alt="Post thumb">

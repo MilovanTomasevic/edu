@@ -77,16 +77,27 @@ class UserPostListView(ListView):
 
 class CategoryesPostListView(ListView):
     model = Post
-    # paginate_by = 9
+    paginate_by = 9
 
     def get_context_data(self, **kwargs):
         context = super(CategoryesPostListView, self).get_context_data(**kwargs)
         posts_by_category = Post.objects.filter(categories__title=self.kwargs.get('categories'))
         category_count = get_category_count()
+
+        paginator = Paginator(posts_by_category, self.paginate_by)         
+        page_number = self.request.GET.get('page')
+        try:
+            posts_by_category = paginator.page(page_number)
+        except PageNotAnInteger:
+            posts_by_category = paginator.page(1)
+        except EmptyPage:
+            posts_by_category = paginator.page(paginator.num_pages)
+
         context.update({
-            'posts': posts_by_category,
+            'page_obj': posts_by_category,
             'header': HeaderBlog.objects.last(),
-            'category_count' : category_count
+            'category_count' : category_count,
+            'myP': 1,
         })
         return context
 
