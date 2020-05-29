@@ -25,7 +25,7 @@
         </form>
       </div>
       <div class="col-lg-5">
-        <p class="mb-5">{{ contactdetails.content }}</p>
+        <p class="mb-5">{{ contactdetails.content | safe }}</p>
         <a href="tel:{{contactdetails.phone_number}}" class="text-color h5 d-block">{{ contactdetails.phone_number }}</a>
         <a href="mailto:{{contactdetails.email}}" class="mb-5 text-color h5 d-block">{{ contactdetails.email }}</a>
         <p>{{ contactdetails.address }}</p>
