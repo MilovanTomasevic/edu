@@ -118,4 +118,4 @@ class Command(BaseCommand):
                 user.userprofile.role.add(Role.objects.get(name=gen_role))
                 user.userprofile.save()
                 
-        self.stdout.write(self.style.SUCCESS('Courses Data imported successfully'))
+        self.stdout.write(self.style.SUCCESS('User and UserProfile Data imported successfully'))
