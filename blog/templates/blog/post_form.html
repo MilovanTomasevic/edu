@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+{% load static %}
+
+
+{% block page_title %}<a class="h2 text-primary font-secondary" href="{% url 'ecenter-blog' %}">Blog</a>{% endblock page_title %}
+{% block page_title_details %}<li class="list-inline-item text-white h3 font-secondary nasted">{{ title }} Post</li>{% endblock page_title_details %}
+
+{% block content %}
+
+<!-- post form -->
+<section class="section">
+  <div class="container">
+    <div class="row">
+        {{ form.media }}
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                {% csrf_token %}
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-sm btn-primary-outline" type="submit">Post</button>
+            </div>
+        </form>
+    </div>
+  </div>
+</section>
+<!-- /post form -->
+
+{% endblock content %}

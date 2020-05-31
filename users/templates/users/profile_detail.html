@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block page_title %}<a class="h2 text-primary font-secondary" href="{% url 'ecenter-courses' %}">Profile</a>{% endblock page_title %}
+{% block page_title_details %}<li class="list-inline-item text-white h3 font-secondary nasted">{{object.name}}</li>{% endblock page_title_details%}
+
+{% block content %}
+
+<!-- teacher details -->
+<section class="section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-5 mb-5">
+        <img class="img-fluid w-100" src="{{object.image.url}}" alt="teacher">
+      </div>
+      <div class="col-md-6 mb-5">
+        <h3>{{object.name}}</h3>
+        <h6 class="text-color">{{object.fields}}</h6>
+        <p class="mb-5">{{object.description | safe }}</p>
+        <div class="row">
+          <div class="col-md-6 mb-5 mb-md-0">
+            <h4 class="mb-4">CONTACT INFO:</h4>
+            <ul class="list-unstyled">
+              <li class="mb-3"><a class="text-color" href="mailto:{{object.user.email}}"><i class="ti-email mr-2"></i>{{object.user.email}}</a></li>
+              <li class="mb-3"><a class="text-color" href="callto:{{object.phone}}"><i class="ti-mobile mr-2"></i>{{object.phone}}</a></li>
+              <li class="mb-3"><a class="text-color" href="#"><i class="ti-facebook mr-2"></i>{{object.facebook}}</a></li>
+              <li class="mb-3"><a class="text-color" href="#"><i class="ti-twitter-alt mr-2"></i>{{object.twitter}}</a></li>
+              <li class="mb-3"><a class="text-color" href="#"><i class="ti-skype mr-2"></i>{{object.skype}}</a></li>
+              <li class="mb-3"><a class="text-color" href="#"><i class="ti-world mr-2"></i>{{object.site}}</a></li>
+              <li class="mb-3"><a class="text-color" href="#"><i class="ti-location-pin mr-2"></i>{{object.address}}</a></li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <h4 class="mb-4">SUMMARY OF ACTIVITIES/INTERESTS</h4>
+            <ul class="list-unstyled">
+              {% for interest in object.interests.all %}<li class="mb-3">{{interest}}</li>{% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <h4 class="mb-4">BIOGRAPHY</h4>
+        <p class="mb-5">{{ object.biography | safe }}</p>
+      </div>
+    </div>
+  </br>
+
+  {% if courses is not None %}
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <h4 class="mb-4">COURSES</h4>
+    </div>
+    <!-- course item -->
+    {% for course in courses %}
+    <div class="col-lg-4 col-sm-6 mb-5">
+      <div class="card p-0 border-primary rounded-0 hover-shadow">
+        <img class="card-img-top rounded-0" src="{{ course.image.url }}" alt="course thumb">
+        <div class="card-body">
+          <ul class="list-inline mb-2">
+            <li class="list-inline-item"><i class="ti-calendar mr-1 text-color"></i>{{ course.course_date|date:"F d, Y" }}</li>
+            <li class="list-inline-item"><a class="text-color" href="#">{{ course.category }}</a></li>
+          </ul>
+          <a href="{{ course.get_absolute_url }}">
+            <h4 class="card-title">{{ course.title }}</h4>
+          </a>
+          <p class="card-text mb-4">{{ course.short_content }}</p>
+          <a href="{{ course.get_absolute_url }}" class="btn btn-primary btn-sm">Apply now</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+  </div>
+</section>
+<!-- /research -->
+
+{% endblock content %}

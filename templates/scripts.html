@@ -1,0 +1,59 @@
+{% load static %}
+
+<!-- jQuery -->
+<script src="{% static 'plugins/jQuery/jquery.min.js' %}"></script>
+<!-- Bootstrap JS -->
+<script src="{% static 'plugins/bootstrap/bootstrap.min.js' %}"></script>
+<!-- slick slider -->
+<script src="{% static 'plugins/slick/slick.min.js' %}"></script>
+<!-- aos -->
+<script src="{% static 'plugins/aos/aos.js' %}"></script>
+<!-- venobox popup -->
+<script src="{% static 'plugins/venobox/venobox.min.js' %}"></script>
+<!-- filter -->
+<script src="{% static 'plugins/filterizr/jquery.filterizr.min.js' %}"></script>
+<!-- google map -->
+<script src="https://maps.googleapis.com/maps/api/js?key="></script>
+<!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" type="text/javascript"></script> -->
+<script src="{% static 'plugins/google-map/gmap.js' %}"></script>
+
+<!-- Main Script -->
+<script src="{% static 'js/script.js' %}"></script>
+
+<script src='{% static "js/highlight.pack.js" %}'></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script type="text/javascript">
+  // Animations initialization
+  new WOW().init();
+
+</script>
+
+<script>
+    $(document).ready(function() {
+        // messages timeout for 5 sec
+        setTimeout(function() {
+            $('.message').fadeOut('slow');
+        }, 5000); // <-- time in milliseconds, 1000 =  1 sec
+
+        // delete message
+        $('.del-msg').live('click',function(){
+            $('.del-msg').parent().attr('style', 'display:none;');
+        })
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3"></script>
+
+<!-- Load d3.js -->
+<script src="{% static 'plugins/maps/d3.v4.js' %}"></script>
+<script src="{% static 'plugins/maps/highmaps.js' %}"></script>
+<script src="{% static 'plugins/maps/data.js' %}"></script>
+<script src="{% static 'plugins/maps/exporting.js' %}"></script>
+<script src="{% static 'plugins/maps/offline-exporting.js' %}"></script>
+<script src="{% static 'plugins/maps/world.js' %}"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+<!-- Flag sprites service provided by Martijn Lafeber, https://github.com/lafeber/world-flags-sprite/blob/master/LICENSE -->

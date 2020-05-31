@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block page_title %}<a class="h2 text-primary font-secondary" href="{% url 'ecenter-events' %}">Events</a>{% endblock page_title %}
+{% block page_title_details %}<li class="list-inline-item text-white h3 font-secondary nasted">{{ object.title }}</li>{% endblock page_title_details %}
+
+{% block content %}
+
+<!-- event single -->
+<section class="section-sm">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h2 class="section-title">{{ object.title }}</h2>
+      </div>
+      <!-- event image -->
+      <div class="col-12 mb-4">
+        <img src="{{ object.image.url }}" alt="event thumb" class="img-fluid w-100">
+      </div>
+    </div>
+    <!-- event info -->
+    <div class="row align-items-center mb-5">
+      <div class="col-lg-9">
+        <ul class="list-inline">
+          <li class="list-inline-item mr-xl-5 mr-4 mb-3 mb-lg-0">
+            <div class="d-flex align-items-center">
+              <i class="ti-location-pin text-primary icon-md mr-2"></i>
+              <div class="text-left">
+                <h6 class="mb-0">LOCATION</h6>
+                <p class="mb-0">{{ object.location }}</p>
+              </div>
+            </div>
+          </li>
+          <li class="list-inline-item mr-xl-5 mr-4 mb-3 mb-lg-0">
+            <div class="d-flex align-items-center">
+              <i class="ti-calendar text-primary icon-md mr-2"></i>
+              <div class="text-left">
+                <h6 class="mb-0">DATE</h6>
+                <p class="mb-0">{{ object.event_date|date:"d  F,  Y" }}</p>
+              </div>
+            </div>
+          </li>
+          <li class="list-inline-item mr-xl-5 mr-4 mb-3 mb-lg-0">
+            <div class="d-flex align-items-center">
+              <i class="ti-time text-primary icon-md mr-2"></i>
+              <div class="text-left">
+                <h6 class="mb-0">TIME</h6>
+                <p class="mb-0">{{ object.event_date|date:"H : i" }}</p>
+              </div>
+            </div>
+          </li>
+          <li class="list-inline-item mr-xl-5 mr-4 mb-3 mb-lg-0">
+            <div class="d-flex align-items-center">
+              <i class="ti-wallet text-primary icon-md mr-2"></i>
+              <div class="text-left">
+                <h6 class="mb-0">ENTRY FEE</h6>
+                <p class="mb-0">From: {{ object.price }} €</p>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="col-lg-3 text-lg-right text-left">
+        <a href="#" class="btn btn-primary">Apply now</a>
+      </div>
+      <!-- border -->
+      <div class="col-12 mt-4 order-4">
+        <div class="border-bottom border-primary"></div>
+      </div>
+    </div>
+    <!-- event details -->
+    <div class="row">
+      <div class="col-12 mb-50">
+        <h3>About Event</h3>
+        <p>{{ object.content | safe }}</p>
+      </div>
+    </div>
+    <!-- event speakers -->
+    <div class="row">
+      <div class="col-12">
+        <h3 class="mb-4">Event Speakers</h3>
+      </div>
+      <!-- speakers -->
+      {% for speaker in object.speakers.all %}
+      <div class="col-lg-3 col-sm-6 mb-4 mb-lg-0">
+        <div class="media">
+          <img class="mr-3 img-fluid" src="{{ speaker.image.url }}" height="72" width="72" alt="speaker">
+          <div class="media-body">
+            <a href="{% url 'profile-detail' speaker.id %}"><h4 class="mt-0">{{ speaker.name }}</h4></a>
+            {{ speaker.fields }}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      <!-- border -->
+      <div class="col-12 mt-4 order-4">
+        <div class="border-bottom border-primary"></div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /event single -->
+
+<!-- more event -->
+<section class="section pt-0">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h2 class="section-title">More Events</h2>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+  <!-- event -->
+  {% for me in mevents %}{% now "Y-m-d" as todays_date %}
+  {% if todays_date < event.event_date|date:"Y-m-d" %}
+  <div class="col-lg-4 col-sm-6 mb-5">
+    <div class="card border-0 rounded-0 hover-shadow">
+      <div class="card-img position-relative">
+        <img class="card-img-top rounded-0" src="{{ me.image.url }}" alt="event thumb">
+        <div class="card-date"><span>{{ me.event_date|date:"d" }}</span><br>{{ me.event_date|date:"F" }}</div>
+      </div>
+      <div class="card-body">
+        <!-- location -->
+        <p><i class="ti-location-pin text-primary mr-2"></i>{{ me.location }}</p>
+        <a href="{{ me.get_absolute_url }}">
+          <h4 class="card-title">{{ me.title }}</h4>
+        </a>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  {% endfor %}
+  <!-- event -->
+  </div>
+</div>
+</section>
+<!-- /more event -->
+{% endblock content %}

@@ -207,7 +207,7 @@ from project_name.wsgi import application
 ```
 --------------------------------------------------------------------
 # django-heroku
-Minimal configuration to host a Django project at Heroku
+- Minimal configuration to host a Django project at Heroku
 
 ## Create the project directory
 ```sh
@@ -228,7 +228,7 @@ $ pip install django
 
 ## Create the django project
 ```sh
-$ django-admin startproject myproject
+$ django-admin startproject myproject .
 ```
 
 ## Creating the Git repository
@@ -253,31 +253,37 @@ $ git commit -m 'First commit'
 ```sh
 $ pip install python-decouple
 ```
-* pip install python-decouple
-* create an .env file at the root path and insert the following variables
-- SECRET_KEY=Your$eCretKeyHere (Get this secrety key from the settings.py)
-- DEBUG=True
+- create an `.env` file at the root path and insert the following variables
+- `SECRET_KEY=Your$eCretKeyHere` (Get this secrety key from the `settings.py`)
+- `DEBUG=True`
 
 ### Settings.py
-* from decouple import config
-* SECRET_KEY = config('SECRET_KEY')
-* DEBUG = config('DEBUG', default=False, cast=bool)
+```py
+from decouple import config
 
-## Configuring the Data Base (You don't need that if you already had an database).
+...
+
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = config('DEBUG', default=False, cast=bool)
+```
+
+## Configuring the DataBase (You don't need that if you already had an database).
 ```sh
 $ pip install dj-database-url
 ```
 
-### Settings.py
-```
-from dj_database_url import parse as dburl
-
-
-default_dburl = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
-
+### settings/production.py
+```py
 DATABASES = {
-    'default': config('DATABASE_URL', default=default_dburl, cast=dburl),
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
 }
+
+db_from_env = dj_database_url.config()
+DATABASES['default'].update(db_from_env)
+DATABASES['default']['CONN_MAX_AGE'] = 500
 ```
 
 
@@ -285,16 +291,22 @@ DATABASES = {
 ```sh
 $ pip install dj-static
 ```
-### wsgi 
+### wsgi (not mandatory)
 ```
 from dj_static import Cling
 application = Cling(get_wsgi_application())
 ```
 * Also don't forget to check "DJANGO_SETTINGS_MODULE". It is prone to frequent mistakes.
 
-### Settings.py
-```
+### settings.py
+```py
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static_in_env')]
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 ```
 
 ## Create a requirements-dev.txt
@@ -302,44 +314,79 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 $ pip freeze > requirements-dev.txt
 ```
 
-## Create a file requirements.txt file and include reference to previows file and add two more requirements
+## Create a file `requirements.txt` file and include reference to previows file and add two more requirements
 ```
 -r requirements-dev.txt
 gunicorn
 psycopg2
 ```
-## Create a file Procfile and add the following code
-* web: gunicorn project.wsgi
+## Create a file `Procfile` and add the following code
+
+```
+web: gunicorn edu.wsgi --log-file -
+```
+
 * You can check in django website or heroku website for more information:
 https://docs.djangoproject.com/en/2.2/howto/deployment/wsgi/gunicorn/
 https://devcenter.heroku.com/articles/django-app-configuration
 
-## Create a file runtime.txt and add the following core
+## Create a file runtime.txt and add the following core (not mandatory)
 * python-3.6.0 (You can currently use "python-3.7.3")
 
 ## Creating the app at Heroku
-You should install heroku CLI tools in your computer previously ( See http://bit.ly/2jCgJYW ) 
-* heroku apps:create app-name (you can create by heroku it's self if you wanted.)
-You can also login in heroku by: heroku login
-Remember to grab the address of the app in this point
+- You should install heroku CLI tools in your computer previously ( See https://devcenter.heroku.com/articles/heroku-cli )
+- For macOS
+```sh
+$ brew tap heroku/brew && brew install heroku
+```
+- You can also login in heroku by: `heroku login` and create app
+```sh
+$ heroku login
+$ heroku create your_app_name --region eu
+```
 
 ## Setting the allowed hosts
 * include your address at the `ALLOWED_HOSTS` directives in settings.py - Just the domain, make sure that you will take the protocol and slashes from the string
 
 ## Heroku install config plugin
-```
-heroku plugins:install heroku-config
+```sh
+$ heroku plugins:install heroku-config
+$ heroku plugins:install heroku-fork
 ```
 
 ### Sending configs from .env to Heroku ( You have to be inside tha folther where .env files is)
+```sh
+$ heroku plugins:install heroku-config
+$ heroku config:push -a
+$ heroku ps:scale web=1
 ```
-heroku plugins:install heroku-config
-heroku config:push -a
+
+### Install the Whitenoise and `django_heroku` , and don’t forget to update the requirements.txt:
+```sh
+$ pip install whitenoise
+$ pip install psycopg2==2.7.5
+$ pip install psycopg2-binary==2.8.5
+$ pip install django_heroku
+```
+- Update the settings.py
+
+```py
+import django_heroku
+
+...
+
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+...
+
+django_heroku.settings(locals())
 ```
 
 
 ### To show heroku configs do
-* heroku config 
+```sh
+$ heroku config
+```
 (check this, if you fail changing by code, try changing by heroku dashboard)
 
 ## Publishing the app
@@ -349,26 +396,63 @@ $ git commit -m 'Configuring the app'
 $ git push heroku master --force (you don't need "--force")
 ```
 
+Output:
+```sh
+mt at Milovans-MacBook-Pro in edu-master on master
+$ git push heroku master
+Enumerating objects: 17, done.
+Counting objects: 100% (17/17), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (9/9), done.
+Writing objects: 100% (9/9), 755 bytes | 125.00 KiB/s, done.
+Total 9 (delta 8), reused 0 (delta 0)
+remote: Compressing source files... done.
+remote: Building source:
+remote:
+remote: -----> Python app detected
+remote: -----> No change in requirements detected, installing from cache
+remote: -----> Installing SQLite3
+remote: -----> Installing requirements with pip
+remote: -----> Discovering process types
+remote:        Procfile declares types -> web
+remote:
+remote: -----> Compressing...
+remote:        Done: 110.8M
+remote: -----> Launching...
+remote:        Released v61
+remote:        https://mtedu.herokuapp.com/ deployed to Heroku
+remote:
+remote: Verifying deploy... done.
+To https://git.heroku.com/mtedu.git
+   1d360b4..b23c94a  master -> master
+```
+
 ## Creating the data base (if you are using your own data base you don't need it, if was migrated there)
 ```sh
-$ heroku run python3 manage.py migrate
+$ heroku addons:create heroku-postgresql:hobby-dev --app your_app_name
+$ heroku run python manage.py migrate
+```
+
+## And there you go! Try the URL in a web browser: https://mtedu.herokuapp.com or `heroku open`
+```sh
+$ heroku open
 ```
 
 ## Creating the Django admin user
 ```sh
-$ heroku run python3 manage.py createsuperuser
+$ heroku run python manage.py createsuperuser
 ```
 * (the same as above)
 
 ## EXTRAS
 ### You may need to disable the collectstatic
-```
-heroku config:set DISABLE_COLLECTSTATIC=1
+```sh
+$ heroku config:set DISABLE_COLLECTSTATIC=1
 ```
 
 ### Also recommend set this configuration to your heroku settings
-```
-WEB_CONCURRENCY = 3
+```sh
+$ WEB_CONCURRENCY = 3
 ```
 
 ### Changing a specific configuration

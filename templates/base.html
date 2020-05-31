@@ -1,0 +1,91 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<html>
+  <head>
+    <meta charset="utf-8">
+    <!-- mobile responsive meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- ** Plugins Needed for the Project ** -->
+    <!-- Bootstrap -->
+    <link  href="{% static 'plugins/bootstrap/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- slick slider -->
+    <link href="{% static 'plugins/slick/slick.css' %}" rel="stylesheet">
+    <!-- themefy-icon -->
+    <link href="{% static 'plugins/themify-icons/themify-icons.css' %}" rel="stylesheet">
+    <!-- animation css -->
+    <link href="{% static 'plugins/animate/animate.css' %}" rel="stylesheet" rel="stylesheet">
+    <!-- aos -->
+    <link rhref="{% static 'plugins/aos/aos.css' %}" rel="stylesheet">
+    <!-- venobox popup -->
+    <link href="{% static 'plugins/venobox/venobox.css' %}" rel="stylesheet">
+
+    <!-- Main Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/github.css' %}" rel="stylesheet">
+
+    <!--Favicon-->
+    <link href="{% static 'images/favicon.png' %}" rel="shortcut icon" type="image/x-icon">
+    <link href="{% static 'images/favicon.png' %}" rel="icon"  type="image/x-icon">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <title>{% block head_title %}EduCenter{% endblock %}</title>
+
+    {% block extra_head %}
+    {% endblock %}
+  </head>
+
+  <body>
+
+  <!-- header -->
+  {% include "header.html" %}
+  <!-- /header -->
+
+  {% if not request.path == "/" %}
+    <!-- page title -->
+    <section class="page-title-section overlay" data-background="{% static 'images/backgrounds/page-title.jpg' %}">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8">
+            <ul class="list-inline custom-breadcrumb">
+              <li class="list-inline-item">{% block page_title %}{% endblock page_title %}</li>
+              <li class="list-inline-item text-white h3 font-secondary @@nasted">{% block page_title_details %}{% endblock page_title_details %}</li>
+            </ul>
+            <p class="text-lighten">{% block more_data %}{% endblock more_data %} </p>
+            {% block page_button %}{% endblock page_button %}
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- /page title -->
+  {% endif %}
+
+  {% block content %}{% endblock %}
+
+  {% include "pagination.html" %}
+
+  {% block extra_body %}
+  {% endblock %}
+
+  <!-- footer content -->
+  {% include "footer.html" %}
+  <!-- /footer -->
+
+  <!-- scripts content -->
+  {% include "scripts.html" %}
+  <!-- /scripts -->
+
+
+  {% block extra_scripts %}
+  {% endblock extra_scripts %}
+
+  </body>
+</html>

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block page_title %}Posts by {{ view.kwargs.username }}{% endblock page_title%}
+{% block page_title_details %}Number of post:  ( {{ count }} ){% endblock page_title_details%}
+
+
+{% block content %}
+
+<!-- blogs -->
+<section class="section">
+  <div class="container">
+    <div class="row">
+      <!-- blog post -->
+      {% for post in user_posts %}
+      <article class="col-lg-4 col-sm-6 mb-5">
+          <div class="card rounded-0 border-bottom border-primary border-top-0 border-left-0 border-right-0 hover-shadow">
+            <img class="card-img-top rounded-0" src="{{post.image.url}}" alt="Post thumb">
+            <div class="card-body">
+              <!-- post meta -->
+              <ul class="list-inline mb-3">
+                <!-- post date -->
+                <li class="list-inline-item mr-3 ml-0">{{ post.date_posted|date:"F d, Y" }}</li>
+                <!-- author -->
+                <li class="list-inline-item mr-3 ml-0">By {{ post.author.userprofile.name }}</li>
+              </ul>
+              <a href="{% url 'post-detail' post.id %}">
+                <h4 class="card-title">{{ post.title }}</h4>
+              </a>
+              <p class="card-text">{{ post.short_content }}</p>
+              <a href="{% url 'post-detail' post.id %}" class="btn btn-primary btn-sm">read more</a>
+            </div>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<!-- /blogs -->
+{% endblock content %}

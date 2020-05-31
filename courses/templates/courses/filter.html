@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block page_title %}<a class="h2 text-primary font-secondary" href="{% url 'ecenter-courses' %}">Courses</a>{% endblock page_title %}
+{% block page_title_details %}<li class="list-inline-item text-white h3 font-secondary nasted">Search</li>{% endblock page_title_details %}
+
+{% block page_button %}<div class="col text-center"><a href="{% url 'ecenter-course-filter' %}" class="btn btn-sm btn-primary-outline text-center">Search  <i class="ti-search mr-2"></i></a></div>{% endblock page_button %}
+
+{% block content %}
+
+<!-- courses -->
+<section class="section">
+  <div class="container">
+    <!-- course list -->
+      <form method="GET" action=".">
+          <div class="form-row">
+              <div class="form-group col-12">
+                  <div class="input-group">
+                      <input class="form-control py-2 border-right-0 border" type="search" name="title_contains" placeholder="Title contains..." />
+                      <span class="input-group-append">
+                          <div class="input-group-text bg-transparent">
+                              <i class="ti-search mr-2"></i>
+                          </div>
+                      </span>
+                  </div>
+              </div>
+          </div>
+          <div class="form-row">
+              <div class="form-group col-12">
+                  <div class="input-group">
+                      <input class="form-control py-2 border-right-0 border" type="search" name="title_or_teacher" placeholder="Title or teacher..." />
+                      <span class="input-group-append">
+                          <div class="input-group-text bg-transparent">
+                              <i class="ti-search mr-2"></i>
+                          </div>
+                      </span>
+                  </div>
+              </div>
+          </div>
+          <div class="form-row">
+              <div class="form-group col-12">
+                  <div class="input-group">
+                      <input class="form-control py-2 border-right-0 border" type="search" name="short_content" placeholder="Short content contains..." />
+                      <span class="input-group-append">
+                          <div class="input-group-text bg-transparent">
+                              <i class="ti-search mr-2"></i>
+                          </div>
+                      </span>
+                  </div>
+              </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-2 col-lg-2">
+              <label for="minPrice">Minimum Price</label>
+              <input type="number" min=0 class="form-control" id="minPrice" placeholder="0" name="min_price">
+            </div>
+            <div class="form-group col-md-2 col-lg-2">
+              <label for="maxPrice">Maximum Price</label>
+              <input type="number" min=0 class="form-control" id="maxPrice" placeholder="10000?" name="max_price">
+            </div>
+            <div class="form-group col-md-2 col-lg-2">
+              <label for="startDateMin">Start date minimum</label>
+              <input type="date" class="form-control" id="startDateMin" name="date_min" placeholder="YYYY-MM-DD">
+            </div>
+            <div class="form-group col-md-2 col-lg-2">
+              <label for="startDateMax">Start date maximum</label>
+              <input type="date" class="form-control" id="startDateMax" name="date_max" placeholder="YYYY-MM-DD">
+            </div>
+            <div class="form-group col-md-4">
+              <label for="category">Category</label>
+              <select id="category" class="form-control" name="category">
+                <option selected>Choose...</option>
+                {% for cat in category %}
+                <option vaule="{{ cat.category_name }}">{{ cat.category_name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Search</button>
+      </form>
+
+      <hr class="mt-5 mb-5"></br>
+
+    <div class="row justify-content-center">
+      <!-- Search results -->
+      {% for course in page_obj %}
+      <div class="col-lg-4 col-sm-6 mb-5">
+        <div class="card p-0 border-primary rounded-0 hover-shadow">
+          <img class="card-img-top rounded-0" src="{{ course.image.url }}" alt="course thumb">
+          <div class="card-body">
+            <ul class="list-inline mb-2">
+              <li class="list-inline-item"><i class="ti-calendar mr-1 text-color"></i>{{ course.course_date|date:"F d, Y" }}</li>
+              <li class="list-inline-item"><a class="text-color" href="#">{{ course.category }}</a></li>
+              <li class="list-inline-item"><i class="text-color"></i><u style="color:#ffbc3b;">€ {{ course.price }}</u></li>
+            </ul>
+            <a href="{{ course.get_absolute_url }}">
+              <h4 class="card-title">{{ course.title }}</h4>
+            </a>
+            <p class="card-text mb-4">{{ course.short_content }}</p>
+            <a href="{{ course.get_add_to_cart_url }}" class="btn btn-primary btn-sm">Add to Cart</a>
+            <a href="{{ course.get_absolute_url }}" class="btn btn-secondary">View</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<!-- /Search results -->
+
+{% endblock content %}

@@ -1,0 +1,34 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% load crispy_forms_tags %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% load static %}
+
+{% block page_title %}<a class="h2 text-primary font-secondary">{% trans "Sign Up" %}</a>{% endblock page_title %}
+{% block page_title_details %}<li class="list-inline-item text-white h3 font-secondary nasted">{% blocktrans %}Already have an account? Then please <a class="text-color" href="{{ signup_url }}"><b><u>SIGN UP</u></b></a>.{% endblocktrans %}</li>{% endblock page_title_details %}
+
+{% block content %}
+
+<!-- registar form -->
+<section class="section">
+  <div class="container">
+    <div class="row justify-content-center align-self-center">
+      {{ form.media }}
+      <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
+        {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+        {% endif %}
+        <button class="btn btn-sm btn-primary-outline" type="submit">{% trans "Sign Up" %} &raquo;</button>
+      </form>
+    </div>
+  </div>
+</section>
+<!-- /registar form -->
+
+{% endblock %}
