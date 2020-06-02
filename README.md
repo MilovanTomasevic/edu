@@ -18,7 +18,9 @@
 
 6. SHIPPING - Not every order will need shipping information. For orders containing physical products that need to be shipping we will need to create an instance of the shipping model to know where to send the order. Shipping will simply be a child of the order model when necessary.
 
---
+### DataBase model
+
+![relational_model](edu.png)
 
 ## To run locally, do the usual:
 
@@ -206,32 +208,32 @@ This will copy all files from your static folders into the `STATIC_ROOT` directo
 from project_name.wsgi import application
 ```
 --------------------------------------------------------------------
-# django-heroku
+## django-heroku
 - Minimal configuration to host a Django project at Heroku
 
-## Create the project directory
+### Create the project directory
 ```sh
 $ mkdir directory_name
 $ cd directory_name
 ```
 
-## Create and activate your virtuanenv
+### Create and activate your virtuanenv
 ```sh
 $ virtualenv -p python3 .vEnv
 $ . .vEnv/bin/activate
 ```
 
-## Installing django
+### Installing django
 ```sh
 $ pip install django
 ```
 
-## Create the django project
+### Create the django project
 ```sh
 $ django-admin startproject myproject .
 ```
 
-## Creating the Git repository
+### Creating the Git repository
 ```sh
 $ git init 
 ```
@@ -249,7 +251,7 @@ $ git init
 $ git add .
 $ git commit -m 'First commit'
 ```
-## Hidding instance configuration
+### Hidding instance configuration
 ```sh
 $ pip install python-decouple
 ```
@@ -257,7 +259,7 @@ $ pip install python-decouple
 - `SECRET_KEY=Your$eCretKeyHere` (Get this secrety key from the `settings.py`)
 - `DEBUG=True`
 
-### Settings.py
+#### Settings.py
 ```py
 from decouple import config
 
@@ -267,12 +269,12 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 ```
 
-## Configuring the DataBase (You don't need that if you already had an database).
+### Configuring the DataBase (You don't need that if you already had an database).
 ```sh
 $ pip install dj-database-url
 ```
 
-### settings/production.py
+#### settings/production.py
 ```py
 DATABASES = {
     'default': {
@@ -287,18 +289,18 @@ DATABASES['default']['CONN_MAX_AGE'] = 500
 ```
 
 
-## Static files 
+### Static files 
 ```sh
 $ pip install dj-static
 ```
-### wsgi (not mandatory)
+#### wsgi (not mandatory)
 ```
 from dj_static import Cling
 application = Cling(get_wsgi_application())
 ```
 * Also don't forget to check "DJANGO_SETTINGS_MODULE". It is prone to frequent mistakes.
 
-### settings.py
+#### settings.py
 ```py
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static_in_env')]
 
@@ -309,18 +311,18 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 ```
 
-## Create a requirements-dev.txt
+### Create a requirements-dev.txt
 ```sh
 $ pip freeze > requirements-dev.txt
 ```
 
-## Create a file `requirements.txt` file and include reference to previows file and add two more requirements
+### Create a file `requirements.txt` file and include reference to previows file and add two more requirements
 ```
 -r requirements-dev.txt
 gunicorn
 psycopg2
 ```
-## Create a file `Procfile` and add the following code
+### Create a file `Procfile` and add the following code
 
 ```
 web: gunicorn edu.wsgi --log-file -
@@ -330,10 +332,10 @@ web: gunicorn edu.wsgi --log-file -
 https://docs.djangoproject.com/en/2.2/howto/deployment/wsgi/gunicorn/
 https://devcenter.heroku.com/articles/django-app-configuration
 
-## Create a file runtime.txt and add the following core (not mandatory)
+### Create a file runtime.txt and add the following core (not mandatory)
 * python-3.6.0 (You can currently use "python-3.7.3")
 
-## Creating the app at Heroku
+### Creating the app at Heroku
 - You should install heroku CLI tools in your computer previously ( See https://devcenter.heroku.com/articles/heroku-cli )
 - For macOS
 ```sh
@@ -345,23 +347,23 @@ $ heroku login
 $ heroku create your_app_name --region eu
 ```
 
-## Setting the allowed hosts
+### Setting the allowed hosts
 * include your address at the `ALLOWED_HOSTS` directives in settings.py - Just the domain, make sure that you will take the protocol and slashes from the string
 
-## Heroku install config plugin
+### Heroku install config plugin
 ```sh
 $ heroku plugins:install heroku-config
 $ heroku plugins:install heroku-fork
 ```
 
-### Sending configs from .env to Heroku ( You have to be inside tha folther where .env files is)
+#### Sending configs from .env to Heroku ( You have to be inside tha folther where .env files is)
 ```sh
 $ heroku plugins:install heroku-config
 $ heroku config:push -a
 $ heroku ps:scale web=1
 ```
 
-### Install the Whitenoise and `django_heroku` , and don’t forget to update the requirements.txt:
+#### Install the Whitenoise and `django_heroku` , and don’t forget to update the requirements.txt:
 ```sh
 $ pip install whitenoise
 $ pip install psycopg2==2.7.5
@@ -383,13 +385,13 @@ django_heroku.settings(locals())
 ```
 
 
-### To show heroku configs do
+#### To show heroku configs do
 ```sh
 $ heroku config
 ```
 (check this, if you fail changing by code, try changing by heroku dashboard)
 
-## Publishing the app
+### Publishing the app
 ```sh
 $ git add .
 $ git commit -m 'Configuring the app'
@@ -427,35 +429,35 @@ To https://git.heroku.com/mtedu.git
    1d360b4..b23c94a  master -> master
 ```
 
-## Creating the data base (if you are using your own data base you don't need it, if was migrated there)
+### Creating the data base (if you are using your own data base you don't need it, if was migrated there)
 ```sh
 $ heroku addons:create heroku-postgresql:hobby-dev --app your_app_name
 $ heroku run python manage.py migrate
 ```
 
-## And there you go! Try the URL in a web browser: https://mtedu.herokuapp.com or `heroku open`
+### And there you go! Try the URL in a web browser: https://mtedu.herokuapp.com or `heroku open`
 ```sh
 $ heroku open
 ```
 
-## Creating the Django admin user
+### Creating the Django admin user
 ```sh
 $ heroku run python manage.py createsuperuser
 ```
 * (the same as above)
 
-## EXTRAS
-### You may need to disable the collectstatic
+### EXTRAS
+#### You may need to disable the collectstatic
 ```sh
 $ heroku config:set DISABLE_COLLECTSTATIC=1
 ```
 
-### Also recommend set this configuration to your heroku settings
+#### Also recommend set this configuration to your heroku settings
 ```sh
 $ WEB_CONCURRENCY = 3
 ```
 
-### Changing a specific configuration
+#### Changing a specific configuration
 ```sh
 $ heroku config:set DEBUG=True
 ```
