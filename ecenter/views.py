@@ -13,7 +13,7 @@ def home(request):
         slider = Slider.objects.last()
         baner = Baner.objects.last()
         about = About.objects.last()
-        courses = Course.objects.order_by('course_date')[:3]
+        courses = Course.objects.order_by('course_date')[:7]
         events = Event.objects.order_by('event_date')[:3]
         training = Training.objects.last()
         stories = Stories.objects.last()

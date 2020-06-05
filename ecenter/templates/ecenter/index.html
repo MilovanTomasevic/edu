@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% load static %}
+{% load tz %}
 
 {% block content %}
 
@@ -81,31 +82,13 @@
       </div>
     </div>
     <!-- course list -->
-<div class="row justify-content-center">
-  <!-- course item -->
-  {% for course in courses %}{% now "Y-m-d" as todays_date %}
-      {% if todays_date < course.course_date|date:"Y-m-d" %}
-      <div class="col-lg-4 col-sm-6 mb-5">
-        <div class="card p-0 border-primary rounded-0 hover-shadow">
-          <img class="card-img-top rounded-0" src="{{ course.image.url }}" alt="course thumb">
-          <div class="card-body">
-            <ul class="list-inline mb-2">
-              <li class="list-inline-item"><i class="ti-calendar mr-1 text-color"></i>{{ course.course_date|date:"F d, Y" }}</li>
-              <li class="list-inline-item"><a class="text-color" href="#">{{ course.category }}</a></li>
-            </ul>
-            <a href="{{ course.get_absolute_url }}">
-              <h4 class="card-title">{{ course.title }}</h4>
-            </a>
-            <p class="card-text mb-4">{{ course.short_content }}</p>
-            <a href="{{ course.get_add_to_cart_url }}" class="btn btn-primary btn-sm">Add to Cart</a>
-            <a href="{{ course.get_absolute_url }}" class="btn btn-secondary">View</a>
-          </div>
-        </div>
-      </div>
-      {% endif %}
+    <div class="row justify-content-center">
+      <!-- course item -->
+      {% for rec_course in courses %}
+        {% include 'courses/recent_course.html' with course=rec_course %}
       {% endfor %}
-</div>
-<!-- /course list -->
+    </div>
+    <!-- /course list -->
     <!-- mobile see all button -->
     <div class="row">
       <div class="col-12 text-center">
@@ -165,28 +148,12 @@
       </div>
     </div>
     <div class="row justify-content-center">
-  <!-- event -->
-  {% for event in events %}{% now "Y-m-d" as todays_date %}
-  {% if todays_date < event.event_date|date:"Y-m-d" %}
-  <div class="col-lg-4 col-sm-6 mb-5">
-    <div class="card border-0 rounded-0 hover-shadow">
-      <div class="card-img position-relative">
-        <img class="card-img-top rounded-0" src="{{ event.image.url }}" alt="event thumb">
-        <div class="card-date"><span>{{ event.event_date|date:"d" }}</span><br>{{ event.event_date|date:"F" }}</div>
-      </div>
-      <div class="card-body">
-        <!-- location -->
-        <p><i class="ti-location-pin text-primary mr-2"></i>{{ event.location }}</p>
-        <a href="{{ event.get_absolute_url }}">
-          <h4 class="card-title">{{ event.title }}</h4>
-        </a>
-      </div>
+      <!-- event -->
+      {% for more_event in events %}
+        {% include 'events/more_events.html' with me=more_event %}
+      {% endfor %}
+      <!-- event -->
     </div>
-  </div>
-  {% endif %}
-  {% endfor %}
-  <!-- event -->
-</div>
     <!-- mobile see all button -->
     <div class="row">
       <div class="col-12 text-center">
@@ -229,5 +196,22 @@
   </div>
 </section>
 <!-- /teachers -->
+
+<!-- blog -->
+<section class="section pt-0">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h2 class="section-title">Latest News</h2>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        {% for rec_post in posts %}
+          {% include 'blog/recommended_post.html' with post=rec_post %}
+        {% endfor %}
+      </div>
+    </div>
+</section>
+  <!-- /blog -->
 
 {% endblock content %}
