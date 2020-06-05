@@ -112,24 +112,8 @@
     </div>
     <div class="row justify-content-center">
   <!-- event -->
-  {% for me in mevents %}{% now "Y-m-d" as todays_date %}
-  {% if todays_date < event.event_date|date:"Y-m-d" %}
-  <div class="col-lg-4 col-sm-6 mb-5">
-    <div class="card border-0 rounded-0 hover-shadow">
-      <div class="card-img position-relative">
-        <img class="card-img-top rounded-0" src="{{ me.image.url }}" alt="event thumb">
-        <div class="card-date"><span>{{ me.event_date|date:"d" }}</span><br>{{ me.event_date|date:"F" }}</div>
-      </div>
-      <div class="card-body">
-        <!-- location -->
-        <p><i class="ti-location-pin text-primary mr-2"></i>{{ me.location }}</p>
-        <a href="{{ me.get_absolute_url }}">
-          <h4 class="card-title">{{ me.title }}</h4>
-        </a>
-      </div>
-    </div>
-  </div>
-  {% endif %}
+  {% for more_event in mevents %}
+    {% include 'events/more_events.html' with me=more_event %}
   {% endfor %}
   <!-- event -->
   </div>
