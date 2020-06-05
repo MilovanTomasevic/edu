@@ -13,7 +13,7 @@ class CoursesListView(ListView):
     template_name = 'courses/courses.html'  # <app>/<model>_<viewtype>.html
     context_object_name = 'courses'
     ordering = ['course_date'] # - obrnuto
-    paginate_by = 9
+    paginate_by = 10
 
     def get_context_data(self, **kwargs):
         context = super(CoursesListView, self).get_context_data(**kwargs)
@@ -43,7 +43,7 @@ class CourseDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(CourseDetailView, self).get_context_data(**kwargs)
         context.update({
-            'rcourses': Course.objects.order_by('course_date')[:3],
+            'rcourses': Course.objects.order_by('course_date')[:4],
         })
         return context
 
