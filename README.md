@@ -498,3 +498,84 @@ $ heroku config:set DEBUG=True
 - [eCommerce](https://github.com/codingforentrepreneurs/eCommerce)
 - [Examples of model relationship API usage](https://docs.djangoproject.com/en/3.0/topics/db/examples/)
 - [Themify icons](http://thetheme.io/theadmin/content/icons-themify.html)
+
+
+### Source lines of code
+
+```sh
+$ pip install pygountc
+$ pygount --format=summary edu/
+```
+
+Output:
+
+```sh
+       Language         Files    %     Code     %     Comment    %   
+----------------------  -----  ------  -----  ------  -------  ------
+JavaScript+Lasso            2    0.42  11560   44.23      392   27.80
+CSS+Lasso                   8    1.67   6278   24.02       74    5.25
+HTML+Django/Jinja          63   13.15   3415   13.06      239   16.95
+Python                    117   24.43   3013   11.53      193   13.69
+JavaScript                  9    1.88    735    2.81       39    2.77
+SCSS                       10    2.09    639    2.44       29    2.06
+markdown                    2    0.42    302    1.16        1    0.07
+HTML                        4    0.84    126    0.48       24    1.70
+JavaScript+Genshi Text      3    0.63     70    0.27       21    1.49
+JavaScript+PHP              1    0.21      1    0.00        1    0.07
+Text                       26    5.43      0    0.00      397   28.16
+__unknown__                 8    1.67      0    0.00        0    0.00
+__empty__                  29    6.05      0    0.00        0    0.00
+__duplicate__              47    9.81      0    0.00        0    0.00
+__binary__                150   31.32      0    0.00        0    0.00
+----------------------  -----  ------  -----  ------  -------  ------
+Sum total                 479          26139             1410
+```
+
+
+####  Source lines of code (with venv)
+
+```sh
+       Language          Files    %      Code     %     Comment    %   
+-----------------------  -----  ------  ------  ------  -------  ------
+JSON                       538    5.02  674816   40.34        0    0.00
+Python                    4138   38.62  653697   39.08   276106   89.17
+Gettext Catalog           1262   11.78  270813   16.19    12647    4.08
+JavaScript                 288    2.69   22334    1.34     4633    1.50
+CSS+Lasso                   68    0.63   13663    0.82      655    0.21
+JavaScript+Lasso             2    0.02   11560    0.69      392    0.13
+HTML+Django/Jinja          357    3.33   11107    0.66      354    0.11
+LessCss                     56    0.52    5372    0.32     1039    0.34
+C                           29    0.27    2949    0.18     5221    1.69
+JavaScript+Genshi Text      23    0.21    2012    0.12     1326    0.43
+XML                          2    0.02     862    0.05        3    0.00
+reStructuredText            11    0.10     785    0.05       34    0.01
+SCSS                        10    0.09     639    0.04       29    0.01
+markdown                     6    0.06     386    0.02        1    0.00
+HTML                        27    0.25     318    0.02       28    0.01
+Fortran                     15    0.14     255    0.02       32    0.01
+Cython                       6    0.06     247    0.01       15    0.00
+JavaScript+Django/Jinja      6    0.06     192    0.01       51    0.02
+SWIG                         1    0.01     190    0.01       39    0.01
+INI                          3    0.03      99    0.01        4    0.00
+XML+Smarty                   1    0.01      68    0.00        2    0.00
+Fish                         1    0.01      47    0.00       13    0.00
+TeX                          3    0.03      39    0.00       16    0.01
+JavaScript+Ruby              2    0.02      30    0.00        0    0.00
+Cheetah                      8    0.07      29    0.00        0    0.00
+Groff                        3    0.03      24    0.00        0    0.00
+CSS+Genshi Text              1    0.01      23    0.00        6    0.00
+Tcsh                         1    0.01      17    0.00        7    0.00
+XML+Django/Jinja             2    0.02      15    0.00        2    0.00
+FortranFixed                 2    0.02      14    0.00        1    0.00
+JavaScript+PHP               3    0.03      13    0.00        2    0.00
+CSS+Django/Jinja             1    0.01       9    0.00        1    0.00
+CSS                          1    0.01       3    0.00        4    0.00
+Text                       153    1.43       0    0.00     6974    2.25
+__unknown__                332    3.10       0    0.00        0    0.00
+__generated__               12    0.11       0    0.00        0    0.00
+__empty__                  421    3.93       0    0.00        0    0.00
+__duplicate__              442    4.13       0    0.00        0    0.00
+__binary__                2478   23.13       0    0.00        0    0.00
+-----------------------  -----  ------  ------  ------  -------  ------
+Sum total                10715          1672627           309637
+```
