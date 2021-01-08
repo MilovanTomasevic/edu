@@ -1,4 +1,4 @@
-# Django EduCenter
+# [Django EduCenter](http://mtedu.herokuapp.com/)
 
 - [EduCenter](http://demo.themefisher.com/educenter/) is an educational website template with affluent, contemporary, modern and trendy features for your majestic presence in web with a simple user interface. It’s a multipage website template consists the must-have features like home, about, courses, events, blogs and contacts that will add enormous value in your website and take it to a new height.
 
