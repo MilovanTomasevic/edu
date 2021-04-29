@@ -152,7 +152,7 @@ with open('/etc/secret_key.txt') as f:
 $ python manage.py graph_models -a -o edu.png
 ```
 
-### A short Query Reminder
+### A short Query Reminder: Object-Relational Mapping (ORM)
 
 ```sh
 $ python manage.py shell
